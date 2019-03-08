@@ -1,0 +1,113 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: flex;
+ min-width: 180px;
+  height:50px;
+  line-height: 50px;
+  background-color: lightblue;
+  position: relative;
+  text-align:center;
+}
+.center_head {
+  display: flex;
+  justify-content: center;
+}
+.forminput label{
+	display:inline-block;
+	width:140px;
+	text-align: right;
+	padding-right:30px;
+}
+.sign_in {
+  display: block;
+  padding:300px,0,0,0;
+  line-height: 50px;
+  background-color:lightblue;
+  text-align:center;
+}
+.center_body {
+	width:50%;
+	margin:auto;}
+
+li span {
+  background-color: lightgreen;
+  display: block;
+  text-decoration: none;
+  font-style: bold;
+  font-size: 1.3em;
+  width: 150px;
+  color: black;
+  padding: 5px 40px 1px 40px;
+  text-align: center;
+}
+li span:hover {
+  background-color: lightblue;
+}
+
+.dropdown-content {
+  display: none;
+  width: 100%;
+  position: absolute;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
+
+.dropdown-content span {
+  color: black;
+  padding: 5px 16px 5px 30px;
+  text-decoration: none;
+  min-width: 100%;
+  display: block;
+  height: 30px;
+  line-height:30px;
+  text-align: left;
+  background-color: lightgreen;
+}
+
+.dropdown-content span:hover {
+  background-color: lightblue;
+  color: black;
+}
+.dropdown {
+  float: left;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: lightgreen;
+}
+
+.login-form {
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        margin-top: 5vh;
+}
+.login-form div {
+        display:flex;
+        flex-direction:row;
+        justify-content:flex-start;
+        flex-basis: 60px;
+}
+.login-form label + input {
+        flex-basis: 1.2em;
+}
+
+.login-register  {
+	display:flex;
+	flex-direction:row;
+	justify-content:flex-start;
+	align-items:center;
+}
+.login-register :nth-child(2)  {
+	margin-left: 40px;
+}
