@@ -5,33 +5,34 @@ body {
 
 li {
   display: flex;
- min-width: 180px;
-  height:50px;
+  min-width: 180px;
+  height: 50px;
   line-height: 50px;
   background-color: lightblue;
   position: relative;
-  text-align:center;
+  text-align: center;
 }
 .center_head {
   display: flex;
   justify-content: center;
 }
-.forminput label{
-	display:inline-block;
-	width:140px;
-	text-align: right;
-	padding-right:30px;
+.forminput label {
+  display: inline-block;
+  width: 140px;
+  text-align: right;
+  padding-right: 30px;
 }
 .sign_in {
   display: block;
-  padding:300px,0,0,0;
+  padding: 300px, 0, 0, 0;
   line-height: 50px;
-  background-color:lightblue;
-  text-align:center;
+  background-color: lightblue;
+  text-align: center;
 }
 .center_body {
-	width:50%;
-	margin:auto;}
+  width: 80%;
+  margin: auto;
+}
 
 li span {
   background-color: lightgreen;
@@ -63,7 +64,7 @@ li span:hover {
   min-width: 100%;
   display: block;
   height: 30px;
-  line-height:30px;
+  line-height: 30px;
   text-align: left;
   background-color: lightgreen;
 }
@@ -87,27 +88,31 @@ li span:hover {
 }
 
 .login-form {
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-        margin-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 5vh;
 }
-.login-form div {
-        display:flex;
-        flex-direction:row;
-        justify-content:flex-start;
-        flex-basis: 60px;
+.login-form  div .login-form label .login-form input .login-form span .login-form h1{
+  display: block;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-basis:200px;
+  flex: 1 0 0;
 }
-.login-form label + input {
-        flex-basis: 1.2em;
+.login-register {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
-
-.login-register  {
-	display:flex;
-	flex-direction:row;
-	justify-content:flex-start;
-	align-items:center;
+.login-register :nth-child(2) {
+  margin-left: 10px;
 }
-.login-register :nth-child(2)  {
-	margin-left: 40px;
+.register-register {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

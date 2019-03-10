@@ -29,7 +29,7 @@ router.get('/getdata', function(req, res) {
 
 router.post('/put', function(req, res) {
   Customers.findOne({name: req.body.name}, function(err, user) {
-    if (user) res.redirect(307, '/check');
+    if (user) res.status(300).send({message:'User Already Registered'});
   });
   let data = new Customers();
   const {name, password} = req.body;
@@ -38,7 +38,8 @@ router.post('/put', function(req, res) {
   data.group = 'regular';
   data.products = [];
 
-  data.save()
+  data
+    .save()
     .then(data => {
       res.status(200).json(data);
     })
@@ -51,18 +52,18 @@ router.post('/check', function(req, res) {
   let data = {};
   const {name, password} = req.body;
   data.name = name;
-  data.password = password;
-	console.log(data);
+  console.log(data);
   Customers.findOne(data, function(err, user) {
-    if (err) res.status(400).send('err happened');
-     console.log(user)
-    if (!user) res.status(300).send('username not found');
+    if (err) res.status(400).send({message: 'Server Error'});
+    console.log(user);
+    if (!user) res.status(300).send({message: 'User Not Found'});
     else if (user.password === password) {
-  data.group = 'regular';
-  data.products = [];
-      return res.send(data);
+      data.password = password;
+      data.group = 'regular';
+      data.products = [];
+      return res.send(user);
     } else {
-      return res.send('password incorrect');
+      return res.status(300).send({message: 'Password Incorrect'});
     }
   });
 });

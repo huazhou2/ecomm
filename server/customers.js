@@ -6,7 +6,8 @@ const DataSchema =new Schema (
 		name:String,
 		password:String,
 	        group:String,
-		products:Array
+		products:Array,
+		message:String
 	},
 	{timestamps:true});
 module.exports=mongoose.model('customers',DataSchema);

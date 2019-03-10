@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import {Link, Redirect} from 'react-router-dom';
 import {userLogin} from '../reducers/user';
 import {connect} from 'react-redux';
@@ -7,19 +6,23 @@ import {connect} from 'react-redux';
 
 class Login extends Component {
   state = {
-    formvalid: true,
+    formvalid: false,
     errors: {},
-    login: null,
   };
 
   render() {
     return (
+	    <div className='row'>
+		    <div className='col-sm-4'/>
+		    <div className='col-sm-4'>
+
       <form onSubmit={this.checklogin} className="login-form">
         <div>
           <h1>Sign In</h1>
         </div>
         <label>Name: </label>
         <input
+	  style={{width:"80%"}}
           type="text"
           placeholder="Please input your name"
           name="name"
@@ -29,7 +32,8 @@ class Login extends Component {
         <br />
         <label>Password: </label>
         <input
-          type="text"
+	  style={{width:"80%"}}
+          type="password"
           name="password"
           placeholder="please input your password"
           onChange={this.handleinput}
@@ -42,12 +46,15 @@ class Login extends Component {
             </button>{' '}
           </div>
           <div>
-            {' '}
             <Link to="/register">Register</Link>
           </div>
         </div>
-        {this.getpage()}
+	<div >
+     {this.getpage()}
+     </div>
       </form>
+      </div>
+	    </div>
     );
   }
 
@@ -66,7 +73,10 @@ class Login extends Component {
       formvalid = false;
       errors.password = 'Please input password';
     }
-    this.setState({errors: errors});
+    this.setState({
+      formvalid: formvalid,
+      errors: errors,
+    });
     return formvalid;
   };
 
@@ -74,33 +84,36 @@ class Login extends Component {
     const formvalid = this.checkvalid();
     const {name, password} = this.state;
     e.preventDefault();
-    let user={};
-	  user.name=name;
-	  user.password=password;
     if (formvalid) {
-	    this.props.userLogin2(user);
+      this.props.userLogin({name, password});
     }
   };
 
   getpage() {
-	  console.log(this.props.loggedin);
-	  console.log(this.props.group);
-    if (this.state.loggedin === true) {
-      return <Redirect to="/loggedin" />;
-    } else return <h1>{this.state.loggedin}</h1>;
+    if (this.props.loggedin === true) {
+	    console.log(this.props.group)
+	    if (this.props.group==='regular')
+      return <Redirect to="/" />;
+	    else 
+      return <Redirect to="/admin" />;
+    } else {
+      const {formvalid} = this.state;
+	    if (formvalid) return <h1 style={{color:"red",width:'400px'}}>{this.props.message}</h1>;
+    }
   }
 }
 const mapStateToProps = state => {
-	return {
-		loggedin: state.loggedin,
-		group:state.group,
-		pass:state.password
-	};
+  return {
+    group: state.group,
+    loggedin: state.loggedin,
+    pass: state.password,
+    message: state.message,
+  };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    userLogin2: (user) => {
-      dispatch(userLogin(user));
+    userLogin: ({name, password}) => {
+      dispatch(userLogin({name, password}));
     },
   };
 };
