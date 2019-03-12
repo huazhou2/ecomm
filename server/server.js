@@ -53,7 +53,6 @@ router.post('/check', function(req, res) {
   data.name = name;
   Customers.findOne(data, function(err, user) {
     if (err) res.status(400).send({message: 'Server Error'});
-    console.log(user);
     if (!user) res.status(300).send({message: 'User Not Found'});
     else if (user.password === password) {
       data.password = password;
