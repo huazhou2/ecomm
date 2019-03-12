@@ -18,7 +18,6 @@ class Admin extends Component {
   };
 
   render() {
-    const {data} = this.state;
     return (
       <div>
         <h1>
@@ -47,7 +46,7 @@ class Admin extends Component {
               {data.map((item, i) => (
                 <tr key={i}>
                   <td>{item.name}</td>
-                  <td>{item.name}</td>
+                  <td>{item.password}</td>
                   <td>{item.group}</td>
                   <td>{item.products.join(', ')}</td>
                 </tr>

@@ -37,14 +37,13 @@ router.post('/put', function(req, res) {
   data.password = password;
   data.group = 'regular';
   data.products = [];
-
-  data
-    .save()
+  data.save()
     .then(data => {
+	data.message='User Created Successfully';
       res.status(200).json(data);
     })
     .catch(err => {
-      res.status(400).send('unable to save to database');
+      res.status(400).send({message:'Unable to save to database'});
     });
 });
 
@@ -52,7 +51,6 @@ router.post('/check', function(req, res) {
   let data = {};
   const {name, password} = req.body;
   data.name = name;
-  console.log(data);
   Customers.findOne(data, function(err, user) {
     if (err) res.status(400).send({message: 'Server Error'});
     console.log(user);

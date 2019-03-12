@@ -5,8 +5,9 @@ export const LOGIN = 'login';
 export const createUser = ({name, password}) => {
   return dispatch => {
     return axios
-      .post(`/customers/put`, {name, password})
+      .post('/customers/put', {name, password})
       .then(response => {
+        console.log('registering:', name, password);
         return dispatch(createUserSuccess(response.data));
       })
       .catch(error => {
@@ -25,7 +26,7 @@ export const createUserSuccess = data => {
       group: data.group,
       products: data.products,
       loggedin: true,
-      message: 'Login Successful'
+      message: 'Login Successful',
     },
   };
 };
@@ -38,7 +39,7 @@ export const createUserFail = data => {
       group: '',
       products: [],
       loggedin: false,
-      message: data.message
+      message: data.message,
     },
   };
 };
@@ -85,6 +86,19 @@ export const userLoginFail = data => {
   };
 };
 
+export const userLogout = () => {
+  return {
+    type: LOGIN,
+    payload: {
+      name: '',
+      password: '',
+      group: '',
+      loggedin: false,
+      products: [],
+      message: 'Successfully Logged Out',
+    },
+  };
+};
 export default function(state = [], action) {
   switch (action.type) {
     case LOGIN:
@@ -94,7 +108,7 @@ export default function(state = [], action) {
         group: action.payload.group,
         message: action.payload.message,
         loggedin: action.payload.loggedin,
-	products: action.payload.products
+        products: action.payload.products,
       };
 
     default:

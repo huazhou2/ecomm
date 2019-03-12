@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import headimg from '../static/headimg.jpeg';
 import {connect} from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
-//import data from '../data/massagedata.json';
 import {Route, Switch, BrowserRouter as Router, Link} from 'react-router-dom';
 import Main from './main.jsx';
 import Group from './group.jsx';
 import Login from './login.jsx';
 import Register from './register.jsx';
 import Admin from './admin.jsx';
+import Logout from './logout.jsx';
 
 class Header extends Component {
   getGroup1() {
@@ -32,8 +32,28 @@ class Header extends Component {
     return groups;
   }
 
+  topright_menu() {
+    const {loggedin, name} = this.props;
+    return loggedin ? (
+      <ul>
+        <li className="dropdown">
+          {name}
+          <div className="dropdown-content">
+            <span key="acc1">
+              <Link to="/groups/1">Your account</Link>
+            </span>
+            <span key="acc2">
+              <Link to="/logout">Logout</Link>
+            </span>
+          </div>{' '}
+        </li>
+      </ul>
+    ) : (
+      <Link to="/login">Signin/Register</Link>
+    );
+  }
   render() {
-    const {data, loggedin, name} = this.props;
+    const {data, loggedin} = this.props;
     return (
       <Router>
         <div>
@@ -69,11 +89,7 @@ class Header extends Component {
 
             <div className="col-sm-2">
               <span className="sign_in" key={11}>
-                {loggedin ? (
-                  <h2>Welcome {name}</h2>
-                ) : (
-                  <Link to="/login">Signin/Register</Link>
-                )}
+                {this.topright_menu()}
               </span>
             </div>
           </div>
@@ -81,6 +97,7 @@ class Header extends Component {
             <Route exact path="/" render={() => <Main data={data} />} />
             <Route path="/groups/:id1" render={() => <Group data={data} />} />
             <Route exact path="/login" render={() => <Login data={data} />} />
+            <Route exact path="/logout" render={() => <Logout data={data} />} />
             <Route
               exact
               path="/register"
