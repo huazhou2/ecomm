@@ -91,7 +91,6 @@ class Login extends Component {
 
   getpage() {
     if (this.props.loggedin === true) {
-	    console.log(this.props.group)
 	    if (this.props.group==='regular')
       return <Redirect to="/" />;
 	    else 
