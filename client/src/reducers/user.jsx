@@ -5,7 +5,7 @@ export const LOGIN = 'login';
 export const createUser = ({name, password}) => {
   return dispatch => {
     return axios
-      .post('/customers/put', {name, password})
+	  .post('/app1/customers/put', {name, password})
       .then(response => {
         console.log('registering:', name, password);
         return dispatch(createUserSuccess(response.data));
@@ -47,7 +47,7 @@ export const createUserFail = data => {
 export const userLogin = ({name, password}) => {
   return dispatch => {
     return axios
-      .post(`/customers/check`, {name, password})
+		  .post(`/app1/customers/check`, {name, password})
       .then(response => {
         dispatch(userLoginSuccess(response.data));
       })
