@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 import {Route, Switch, BrowserRouter as Router, Link} from 'react-router-dom';
 import Main from './main.jsx';
-import Group from './group.jsx';
+//import Group from './group.jsx';
 import Login from './login.jsx';
 import Register from './register.jsx';
 import Admin from './admin.jsx';
@@ -95,7 +95,7 @@ class Header extends Component {
           </div>
           <Switch>
             <Route exact path="/" render={() => <Main data={data} />} />
-            <Route path="/groups/:id1" render={() => <Group data={data} />} />
+	    <Route path="/groups/:id1" render={({match}) => <Main match={match} data={data.filter(item=>item.group2===match.params.id1)} />} />
             <Route exact path="/login" render={() => <Login data={data} />} />
             <Route exact path="/logout" render={() => <Logout data={data} />} />
             <Route
