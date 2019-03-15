@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import headimg from '../static/headimg.jpeg';
 import {connect} from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 import {Route, Switch, BrowserRouter as Router, Link} from 'react-router-dom';
@@ -39,10 +38,10 @@ class Header extends Component {
         <li className="dropdown">
           {name}
           <div className="dropdown-content">
-            <span key="acc1">
-              <Link to="/groups/1">Your account</Link>
+            <span>
+              <Link to="/accounts/:id">Your account</Link>
             </span>
-            <span key="acc2">
+            <span>
               <Link to="/logout">Logout</Link>
             </span>
           </div>{' '}
@@ -53,20 +52,20 @@ class Header extends Component {
     );
   }
   render() {
-    const {data, loggedin} = this.props;
+    const {data} = this.props;
     return (
       <Router>
         <div>
           <div className="jumbotron text-center">
-            <h1>Lily Massage Supplies {loggedin}</h1>
-		  <a href='/'>
-            <img
-              src={headimg}
-              className="rounded center-block"
-              style={{width: 'auto', maxHeight: '100px'}}
-              alt="not here"
-            />
-    </a>
+            <h1>Lily Massage Supplies</h1>
+            <a href="/">
+              <img
+                src="/static/headimg.jpeg"
+                className="rounded center-block"
+                style={{width: 'auto', maxHeight: '100px'}}
+                alt="not here"
+              />
+            </a>
           </div>
           <div className="row">
             <div className="col-sm-2" />
@@ -97,8 +96,24 @@ class Header extends Component {
           </div>
           <Switch>
             <Route exact path="/" render={() => <Main data={data} />} />
-	    <Route path="/groups/:id1" render={({match}) => <Main match={match} data={data.filter(item=>item.group2===match.params.id1)} />} />
-	    <Route path="/products/:id1" render={({match}) => <Product match={match} data={data.filter(item=>item.item===match.params.id1)} />} />
+            <Route
+              path="/groups/:id1"
+              render={({match}) => (
+                <Main
+                  match={match}
+                  data={data.filter(item => item.group2 === match.params.id1)}
+                />
+              )}
+            />
+            <Route
+              path="/products/:id1"
+              render={({match}) => (
+                <Product
+                  match={match}
+                  data={data.filter(item => item.item === match.params.id1)}
+                />
+              )}
+            />
             <Route exact path="/login" render={() => <Login data={data} />} />
             <Route exact path="/logout" render={() => <Logout data={data} />} />
             <Route
