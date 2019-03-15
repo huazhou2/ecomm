@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import data from '../data/massagedata.json';
 import Header from './header.jsx';
 import {connect} from 'react-redux';
+import {Helmet} from 'react-helmet';
+const TITLE='Lili MassageSupplies';
 
 
 class App extends Component {
@@ -15,7 +17,11 @@ class App extends Component {
 
   render() {
 	   
-	  return  <Header data={data} loggedin={true} username={this.state.user}/>;
+	  return  <Header data={data} loggedin={true} username={this.state.user}>
+		  <Helmet>
+			<title>{TITLE}</title>
+			</Helmet>
+	  </Header>;
   }
 }
 function mapStateToProps(state) {

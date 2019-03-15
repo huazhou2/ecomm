@@ -13,7 +13,7 @@ class Admin extends Component {
   }
   getdata = () => {
     axios
-		  .get('/app1/customers/getdata')
+		  .get('/massage/customers/getdata')
       .then(res => this.setState({data: res.data}));
   };
 

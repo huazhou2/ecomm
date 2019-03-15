@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const port = 3001;
+const port = 3002;
 const app = express();
 const router = express.Router();
 const Customers = require('./customers.js');
@@ -67,5 +67,5 @@ router.post('/check', function(req, res) {
   });
 });
 
-app.use('/app1/customers', router);
+app.use('/massage/customers', router);
 app.listen(port);
