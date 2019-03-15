@@ -27,7 +27,7 @@ class Main extends Component {
             {item.map((item2,j) => (
               <div className="col-sm-3 card border-primary text-center">
 		  <a href={`/products/${item2.name}`}>    <div className='card-body'> 
-                <img src={item2.link} key={j} alt="noimg" />
+                <img id='thum_img' src={item2.link} key={j} alt="noimg" />
 	</div>
 	
 	<div className='card-footer bg-success'>
