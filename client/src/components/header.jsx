@@ -59,12 +59,14 @@ class Header extends Component {
         <div>
           <div className="jumbotron text-center">
             <h1>Lily Massage Supplies {loggedin}</h1>
+		  <a href='/'>
             <img
               src={headimg}
               className="rounded center-block"
               style={{width: 'auto', maxHeight: '100px'}}
               alt="not here"
             />
+    </a>
           </div>
           <div className="row">
             <div className="col-sm-2" />
