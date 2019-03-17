@@ -18,6 +18,11 @@ db.once('open', () => console.log('connected to the database'));
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const path=require('path');
 app.use("/",express.static(path.join(__dirname, '../client/build')))
+app.get('*',function(req,res) {
+	        res.sendFile('index.html',
+			                {root: path.join(__dirname,'../client/build')})
+});
+
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
