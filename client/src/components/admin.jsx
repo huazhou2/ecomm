@@ -13,9 +13,10 @@ class Admin extends Component {
   }
   getdata = () => {
     axios
-		  .get('/massage/customers/getdata')
+      .get('/massage/customers/getdata')
       .then(res => this.setState({data: res.data}));
   };
+
 
   render() {
     return (
@@ -23,19 +24,20 @@ class Admin extends Component {
         <h1>
           Welcome {this.props.group} {this.props.name}
         </h1>
-	{this.showdata()}
+        {this.showdata()}
       </div>
     );
   }
 
   showdata = () => {
     const {data} = this.state;
-    if (!data) return;
+    console.log(data);
+    //if (!data) return;
     return (
       <div className="row">
         <div className="col-sm-4" />
         <div className="col-sm-4">
-          <table className='table'>
+          <table className="table">
             <tbody>
               <tr>
                 <th>name</th>

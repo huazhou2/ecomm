@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const port = 3002;
+const port = 3001;
 const app = express();
 const router = express.Router();
 const Customers = require('./customers.js');
@@ -18,11 +18,13 @@ db.once('open', () => console.log('connected to the database'));
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const path=require('path');
 app.use("/",express.static(path.join(__dirname, '../client/build')))
-app.get('*',function(req,res) {
+
+//if not api path, reedirect to home
+app.get('/*',function(req,res) {
+	if (!!/^\/massage/.test(req.url))
 	        res.sendFile('index.html',
 			                {root: path.join(__dirname,'../client/build')})
 });
-
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -30,7 +32,7 @@ app.use(bodyParser.json());
 router.get('/getdata', function(req, res) {
   Customers.find((err, data) => {
     if (err) return res.json('got errors');
-    return res.json(data);
+    res.status(200).send(data);
   });
 });
 

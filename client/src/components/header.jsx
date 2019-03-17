@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
-import Popper from 'popper.js';
 import {Route, Switch, BrowserRouter as Router, Link} from 'react-router-dom';
 import Main from './main.jsx';
 import Product from './product.jsx';
@@ -40,7 +39,7 @@ class Header extends Component {
         <li className="nav-item dropdown">
               { loggedin ? (
           <a
-            href="#"
+            href="/"
 	    className="dropdown-toggle"
             data-toggle="dropdown"
 	    role="button"
@@ -49,7 +48,7 @@ class Header extends Component {
             {name}
           </a>):(
           <a
-            href="#"
+            href="/"
             data-toggle="dropdown"
 	    role="button"
 	    aria-haspopup="true"
@@ -95,7 +94,7 @@ class Header extends Component {
                 {this.getGroup1().map((item, i) => (
                   <li className="nav-item dropdown" key={i}>
                     <a
-                      href="#"
+			    href="/"
                       className="dropdown-toggle"
                       data-toggle="dropdown"
                       role="button"
@@ -158,7 +157,7 @@ class Header extends Component {
               path="/register"
               render={() => <Register data={data} />}
             />
-            <Route exact path="/admin" render={() => <Admin data={data} />} />
+            <Route path="/admin" render={() => <Admin/>} />
           </Switch>
         </div>
       </Router>

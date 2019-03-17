@@ -3,7 +3,7 @@
   padding: 0;
 }*/
 
-li {
+/*li {
   display: flex;
   min-width: 180px;
   height: 50px;
@@ -11,7 +11,7 @@ li {
   background-color: lightblue;
   position: relative;
   text-align: center;
-}
+}*/
 .center_head {
   display: flex;
   justify-content: center;
