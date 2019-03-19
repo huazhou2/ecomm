@@ -19,12 +19,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const path=require('path');
 app.use("/",express.static(path.join(__dirname, '../client/build')))
 
-//if not api path, reedirect to home
-app.get('/*',function(req,res) {
-	if (!!/^\/massage/.test(req.url))
-	        res.sendFile('index.html',
-			                {root: path.join(__dirname,'../client/build')})
-});
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -75,4 +69,10 @@ router.post('/check', function(req, res) {
 });
 
 app.use('/massage/customers', router);
+//if not api path, reedirect to home
+app.get('/*',function(req,res) {
+//	if (!!/^\/massage/.test(req.url))
+	        res.sendFile('index.html',
+			                {root: path.join(__dirname,'../client/build')})
+});
 app.listen(port);

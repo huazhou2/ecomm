@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import data from '../data/massagedata.json';
-import Header from './header.jsx';
 import {BrowserRouter as Router } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {Helmet} from 'react-helmet';
+import Routes from './routes.jsx';
 const TITLE = 'Lili MassageSupplies';
 
 class App extends Component {
@@ -21,7 +21,10 @@ class App extends Component {
         <title>{TITLE}</title>
       </Helmet>
       <Router>
-      <Header data={data} loggedin={true} username={this.state.user} />
+	      <div>
+      <Routes data={data}/>
+
+      </div>
       </Router>
     </div>);
   }
