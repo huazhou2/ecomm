@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
-import {Route, Switch, BrowserRouter as Router, Link} from 'react-router-dom';
+import {withRouter,Route, Switch, BrowserRouter as Router, Link} from 'react-router-dom';
 import Main from './main.jsx';
 import Product from './product.jsx';
 import Login from './login.jsx';
@@ -10,7 +10,20 @@ import Register from './register.jsx';
 import Admin from './admin.jsx';
 import Logout from './logout.jsx';
 
+
+
 class Header extends Component {
+
+	constructor(props){
+		           super(props);
+		           this.goBack = this.goBack.bind(this); // i think you are missing this
+	}
+
+	goBack(){
+		            this.props.history.goBack();
+	}
+
+
   getGroup1() {
     const {data} = this.props;
     const groups = [];
@@ -75,9 +88,10 @@ class Header extends Component {
   render() {
     const {data} = this.props;
     return (
-      <Router>
         <div>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
+		   <button onClick={this.goBack}>Go Back</button>
+
             <button
               className="navbar-toggler"
               type="button"
@@ -130,6 +144,7 @@ class Header extends Component {
               </form>
             </div>
           </nav>
+	  <div>
           <Switch>
             <Route exact path="/" render={() => <Main data={data} />} />
             <Route
@@ -159,8 +174,8 @@ class Header extends Component {
             />
             <Route path="/admin" render={() => <Admin/>} />
           </Switch>
+  </div>
         </div>
-      </Router>
     );
   }
 }
@@ -175,7 +190,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   null,
-)(Header);
+)(Header));
