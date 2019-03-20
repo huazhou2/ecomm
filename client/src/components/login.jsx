@@ -1,123 +1,97 @@
 import React, {Component} from 'react';
-import {Link, Redirect} from 'react-router-dom';
-import {userLogin} from '../reducers/user';
-import {connect} from 'react-redux';
-//import Register from './register.jsx';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginUser } from '../reducers/actions';
+import classnames from 'classnames';
+import {Link} from 'react-router-dom';
 
 class Login extends Component {
-  state = {
-    formvalid: false,
-    errors: {},
-  };
 
-  render() {
-    return (
-	    <div className='row'>
-		    <div className='col-sm-4'/>
-		    <div className='col-sm-4'>
+    constructor() {
+        super();
+        this.state = {
+            email: '',
+            password: '',
+            errors: {}
+        }
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-      <form onSubmit={this.checklogin} className="login-form">
-        <div>
-          <h1>Sign In</h1>
+    handleInputChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const user = {
+            email: this.state.email,
+            password: this.state.password,
+        }
+        this.props.loginUser(user);
+    }
+
+    componentWillReceiveProps(nextProps) {
+
+        if(nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
+        }
+    }
+
+    render() {
+        const {errors} = this.state;
+        return(
+        <div className="container" style={{ marginTop: '50px', width: '700px'}}>
+            <h2 style={{marginBottom: '40px'}}>Login</h2>
+            <form onSubmit={ this.handleSubmit }>
+                <div className="form-group">
+                    <input
+                    type="email"
+                    placeholder="Email"
+                    className={classnames('form-control form-control-lg', {
+                        'is-invalid': errors.email
+                    })}
+                    name="email"
+                    onChange={ this.handleInputChange }
+                    value={ this.state.email }
+                    />
+                    {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
+                </div>
+                <div className="form-group">
+                    <input
+                    type="password"
+                    placeholder="Password"
+                    className={classnames('form-control form-control-lg', {
+                        'is-invalid': errors.password
+                    })}
+                    name="password"
+                    onChange={ this.handleInputChange }
+                    value={ this.state.password }
+                    />
+                    {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
+                </div>
+                <div className="form-group">
+                    <button type="submit" className="btn btn-primary">
+                        Login User
+                    </button>
+            <Link to="/register" className="ml-2 d-inline-block">Register</Link>
+                </div>
+            </form>
         </div>
-        <label>Name: </label>
-        <input
-	  style={{width:"80%"}}
-          type="text"
-          placeholder="Please input your name"
-          name="name"
-          onChange={this.handleinput}
-        />
-        <span style={{color: 'red'}}>{this.state.errors.name}</span>
-        <br />
-        <label>Password: </label>
-        <input
-	  style={{width:"80%"}}
-          type="password"
-          name="password"
-          placeholder="please input your password"
-          onChange={this.handleinput}
-        />
-        <span style={{color: 'red'}}>{this.state.errors.password}</span>
-        <div className="login-register">
-          <div>
-            <button type="submit" value="submit">
-              Login
-            </button>{' '}
-          </div>
-          <div>
-            <Link to="/register">Register</Link>
-          </div>
-        </div>
-	<div >
-     {this.getpage()}
-     </div>
-      </form>
-      </div>
-	    </div>
-    );
-  }
-
-  handleinput = e => {
-    this.setState({[e.target.name]: e.target.value});
-  };
-  checkvalid = () => {
-    let errors = {};
-    let formvalid = true;
-    const {name, password} = this.state;
-    if (!name) {
-      formvalid = false;
-      errors.name = 'Please input Name';
+        )
     }
-    if (!password) {
-      formvalid = false;
-      errors.password = 'Please input password';
-    }
-    this.setState({
-      formvalid: formvalid,
-      errors: errors,
-    });
-    return formvalid;
-  };
-
-  checklogin = e => {
-    const formvalid = this.checkvalid();
-    const {name, password} = this.state;
-    e.preventDefault();
-    if (formvalid) {
-      this.props.userLogin({name, password});
-    }
-  };
-
-  getpage() {
-    if (this.props.loggedin === true) {
-	    if (this.props.group==='regular')
-      return <Redirect to="/" />;
-	    else 
-      return <Redirect to="/admin" />;
-    } else {
-      const {formvalid} = this.state;
-	    if (formvalid) return <h1 style={{color:"red",width:'400px'}}>{this.props.message}</h1>;
-    }
-  }
 }
-const mapStateToProps = state => {
-  return {
-    group: state.group,
-    loggedin: state.loggedin,
-    pass: state.password,
-    message: state.message,
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    userLogin: ({name, password}) => {
-      dispatch(userLogin({name, password}));
-    },
-  };
-};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Login);
+Login.propTypes = {
+    errors: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+    errors: state.errors
+})
+
+export  default connect(mapStateToProps, { loginUser })(Login);

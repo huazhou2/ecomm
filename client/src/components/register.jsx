@@ -1,112 +1,111 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
-import {createUser} from '../reducers/user';
 import {connect} from 'react-redux';
-
+import { withRouter } from 'react-router-dom';
+import { registerUser } from '../reducers/actions';
 class Register extends Component {
-  state = {
-    formvalid: false,
-    errors: {},
-  };
 
-  render() {
-    return (
-	    <div className='row'>
-		    <div className='col-sm-5'/>
-		    <div className='col-sm-4'>
+    constructor() {
+        super();
+        this.state = {
+            name: '',
+            email: '',
+            password: '',
+            password_confirm: '',
+            errors: {}
+        }
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-      <form onSubmit={this.checkregister} className="login-form">
-        <div>
-          <h1>Register</h1>
+    handleInputChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const user = {
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password,
+            password_confirm: this.state.password_confirm
+        }
+        this.props.registerUser(user, this.props.history);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
+        }
+    }
+
+    render() {
+        return(
+        <div className="container" style={{ marginTop: '50px', width: '700px'}}>
+            <h2 style={{marginBottom: '40px'}}>Registration</h2>
+            <form onSubmit={ this.handleSubmit }>
+                <div className="form-group">
+                    <input
+                    type="text"
+                    placeholder="Name"
+                    className="form-control"
+                    name="name"
+                    onChange={ this.handleInputChange }
+                    value={ this.state.name }
+                    />
+                </div>
+                <div className="form-group">
+                    <input
+                    type="email"
+                    placeholder="Email"
+                    className="form-control"
+                    name="email"
+                    onChange={ this.handleInputChange }
+                    value={ this.state.email }
+                    />
+                </div>
+                <div className="form-group">
+                    <input
+                    type="password"
+                    placeholder="Password"
+                    className="form-control"
+                    name="password"
+                    onChange={ this.handleInputChange }
+                    value={ this.state.password }
+                    />
+                </div>
+                <div className="form-group">
+                    <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    className="form-control"
+                    name="password_confirm"
+                    onChange={ this.handleInputChange }
+                    value={ this.state.password_confirm }
+                    />
+                </div>
+                <div className="form-group">
+                    <button type="submit" className="btn btn-primary">
+                        Register User
+                    </button>
+                </div>
+            </form>
         </div>
-        <label>Name: </label>
-        <input
-	  style={{width:"300px"}}
-          type="text"
-          placeholder="Please input your name"
-          name="name"
-          onChange={this.handleinput}
-        />
-        <span style={{color: 'red'}}>{this.state.errors.name}</span>
-        <br />
-        <label>Password: </label>
-        <input
-	  style={{width:"300px"}}
-          type="text"
-          name="password"
-          placeholder="please input your password"
-          onChange={this.handleinput}
-        />
-        <span style={{color: 'red'}}>{this.state.errors.password}</span>
-        <div className="register-register">
-            <button type="submit" value="submit">
-             Submit 
-            </button>
-          </div>
-        {this.getpage()}
-      </form>
-      </div>
-      </div>
-    );
-  }
-
-  handleinput = e => {
-    this.setState({[e.target.name]: e.target.value});
-  };
-  checkvalid = () => {
-    let errors = {};
-    let formvalid = true;
-    const {name, password} = this.state;
-    if (!name) {
-      formvalid = false;
-      errors.name = 'Please input Name';
+        )
     }
-    if (!password) {
-      formvalid = false;
-      errors.password = 'Please input password';
-    }
-    this.setState({
-      formvalid: formvalid,
-      errors: errors,
-    });
-    return formvalid;
-  };
-
-  checkregister = e => {
-    const formvalid = this.checkvalid();
-    const {name, password} = this.state;
-    e.preventDefault();
-    if (formvalid) {
-      this.props.createUser({name, password});
-    }
-  };
-
-  getpage() {
-    if (this.props.loggedin === true) {
-      return <Redirect to="/" />;
-    } else {
-      const {formvalid} = this.state;
-	    if (formvalid) return <h1 style={{color:"red"}}> {this.props.message}</h1>;
-    }
-  }
 }
-const mapStateToProps = state => {
-  return {
-    group: state.group,
-    loggedin: state.loggedin,
-    pass: state.password,
-    message: state.message,
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    createUser: ({name, password}) => {
-      dispatch(createUser({name, password}));
-    },
-  };
+
+Register.propTypes = {
+    registerUser: PropTypes.func.isRequired,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Register);
+const mapStateToProps = state => ({
+    errors: state.errors
+});
+
+export default connect(mapStateToProps,{ registerUser })(withRouter(Register))
