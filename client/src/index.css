@@ -136,11 +136,11 @@ li span:hover {
 .scroll {
   opacity: 0.3;
   background-color: white;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   position: fixed;
-  bottom: 10px;
-  right: 10px;
+  bottom: 30px;
+  right: 20px;
   border-radius: 5px;
   border: none;
 
@@ -150,7 +150,6 @@ li span:hover {
 }
 
 .arrow-up {
-  color: black;
   position: absolute;
   top: 50%;
   left: 50%;

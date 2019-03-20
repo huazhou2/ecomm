@@ -85,7 +85,10 @@ class Header extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-		{this.props.location.pathname!=='/' && <a href='/' onClick={this.goBack} > <i className="fa fa-arrow-left "/></a>}
+		{this.props.location.pathname!=='/' && <a href='/' onClick={this.goBack} > <i className="fa fa-arrow-left fa-2x "/></a>}
+            <a className="navbar-brand ml-2" href="/">
+              Lily Massage Supplies{' '}
+            </a>
 
           <button
             className="navbar-toggler"
@@ -96,9 +99,6 @@ class Header extends Component {
           </button>
 
           <div className="collapse navbar-collapse hide d-sm-block" id="storemenu">
-            <a className="navbar-brand" href="/">
-              Lily Massage Supplies{' '}
-            </a>
             <ul className="navbar-nav ml-auto mt-2 mt-lg-3">
               {this.getGroup1().map((item, i) => (
                 <li className="nav-item dropdown" key={i}>
