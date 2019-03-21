@@ -19,10 +19,10 @@ let db = mongoose.connection;
 db.once('open', () => console.log('connected to the database'));
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+app.use(bodyParser.json());
+require('./passport')(passport);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(passport.initialize());
-require('./passport')(passport);
 
 const path = require('path');
 app.use('/', express.static(path.join(__dirname, '../client/build')));

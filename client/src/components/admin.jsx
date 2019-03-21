@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+//import {GET_ERRORS} from '../reducers/actions';
 import axios from 'axios';
+import {withRouter} from 'react-router';
+
 class Admin extends Component {
   constructor(props) {
     super(props);
@@ -13,8 +16,9 @@ class Admin extends Component {
   }
   getdata = () => {
     axios
-      .get('/massage/customers/getdata')
-      .then(res => this.setState({data: res.data}));
+      .get('/api/customers/getdata')
+		  .then(res => this.setState({data: res.data}))
+		  .catch(err => this.props.history.push('/')) ;
   };
 
 
@@ -63,12 +67,8 @@ class Admin extends Component {
 
 function mapStateToProps(state) {
   return {
-    name: state.name,
-    password: state.password,
-    group: state.group,
-    message: state.message,
-    products: state.products,
+	  auth:state.auth
   };
 }
 
-export default connect(mapStateToProps)(Admin);
+export default withRouter(connect(mapStateToProps)(Admin));

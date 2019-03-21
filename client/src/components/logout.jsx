@@ -1,20 +1,20 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-//import {userLogout} from "../reducers/authentication.jsx";
+import {logoutUser} from "../reducers/actions";
+import {withRouter} from "react-router";
 
 class Logout extends Component {
 
 	//	  componentWillMount() {
 	//	      this.props.dispatch(userLogout());
 	//	    }
+	componentDidMount() {
+		this.props.logoutUser(this.props.history);
+	}
+	render()
+	{return null;}
 
-	  render() {
-		      return (
-			            <Redirect to="/" />
-			          );
-		    }
 
 }
 
-export default connect()(Logout);
+export default connect(null, { logoutUser })(withRouter(Logout));

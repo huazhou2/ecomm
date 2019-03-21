@@ -1,4 +1,3 @@
-
 import { combineReducers } from 'redux';
 
 export const GET_ERRORS = 'GET_ERRORS';

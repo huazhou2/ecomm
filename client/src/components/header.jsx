@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
-import {
-  withRouter,
-  Link
-} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
+import {logoutUser} from '../reducers/actions';
+import data from '../data/massagedata.json';
+
 
 class Header extends Component {
   constructor(props) {
@@ -17,9 +17,12 @@ class Header extends Component {
   goBack() {
     this.props.history.goBack();
   }
+	onLogout=(e)=> {
+    e.preventDefault();
+    this.props.logoutUser(this.props.history);
+  }
 
   getGroup1() {
-    const {data} = this.props;
     const groups = [];
     data.forEach(function(item) {
       if (groups.indexOf(item.group1) === -1) {
@@ -29,7 +32,6 @@ class Header extends Component {
     return groups;
   }
   getGroup2(groupname) {
-    const {data} = this.props;
     const groups = [];
     data.filter(item => item.group1 === groupname).forEach(item => {
       if (groups.indexOf(item.group2) === -1) {
@@ -40,11 +42,11 @@ class Header extends Component {
   }
 
   topright_menu() {
-    const {loggedin, name} = this.props;
+    const {isAuthenticated, user} = this.props.auth;
     return (
       <ul className="navbar-nav ml-auto mt-2 mt-lg-3 ">
-        <li className="nav-item dropdown">
-          {loggedin ? (
+        <li className="nav-item dropdown" key='navall'>
+          {isAuthenticated ? (
             <a
               href="/"
               className="dropdown-toggle"
@@ -52,7 +54,7 @@ class Header extends Component {
               role="button"
               aria-haspopup="true"
               aria-expanded="false">
-              {name}
+              {user.name}
             </a>
           ) : (
             <a
@@ -61,17 +63,18 @@ class Header extends Component {
               role="button"
               aria-haspopup="true"
               aria-expanded="false">
-              {name}
+              {user.name}
             </a>
           )}
 
-          {loggedin ? (
+          {isAuthenticated ? (
             <ul className="dropdown-menu">
-              <li>
+              <li key='navall1'>
                 <Link to="/accounts/:id">Your account</Link>
               </li>
-              <li>
-                <Link to="/logout">Logout</Link>
+	      <li key='navall2' >
+		      <Link to='/logout'>
+			      Log out</Link>
               </li>
             </ul>
           ) : (
@@ -85,10 +88,15 @@ class Header extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-		{this.props.location.pathname!=='/' && <a href='/' onClick={this.goBack} > <i className="fa fa-arrow-left fa-2x "/></a>}
-            <a className="navbar-brand ml-2" href="/">
-              Lily Massage Supplies{' '}
+          {this.props.location.pathname !== '/' && (
+            <a href="/" onClick={this.goBack}>
+              {' '}
+              <i className="fa fa-arrow-left fa-2x " />
             </a>
+          )}
+          <a className="navbar-brand ml-2" href="/">
+            Lily Massage Supplies{' '}
+          </a>
 
           <button
             className="navbar-toggler"
@@ -98,7 +106,9 @@ class Header extends Component {
             <span className="navbar-toggler-icon" />
           </button>
 
-          <div className="collapse navbar-collapse hide d-sm-block" id="storemenu">
+          <div
+            className="collapse navbar-collapse hide d-sm-block"
+            id="storemenu">
             <ul className="navbar-nav ml-auto mt-2 mt-lg-3">
               {this.getGroup1().map((item, i) => (
                 <li className="nav-item dropdown" key={i}>
@@ -113,10 +123,8 @@ class Header extends Component {
                   </a>
                   <ul className="dropdown-menu">
                     {this.getGroup2(item).map((item2, j) => (
-			    <li key={j}
-             >
-			      <Link to={`/groups/${item2}`}
-            > {item2}</Link>
+                      <li key={j}>
+                        <Link to={`/groups/${item2}`}> {item2}</Link>
                       </li>
                     ))}
                   </ul>
@@ -148,17 +156,13 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return {
-    name: state.name,
-    group: state.group,
-    loggedin: state.loggedin,
-    pass: state.password,
-    message: state.message,
+    auth: state.auth,
   };
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    null,
+    {logoutUser},
   )(Header),
 );

@@ -8,12 +8,11 @@ import Admin from './admin.jsx';
 import Logout from './logout.jsx';
 import Header from './header.jsx';
 import ScrollUp from './scrollup.jsx';
-
+import data from '../data/massagedata.json';
 
 class Routes extends Component {
 
   render() {
-    const {data} = this.props;
     return (
         <div>
 	<Switch>

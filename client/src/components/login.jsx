@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { loginUser } from '../reducers/actions';
 import classnames from 'classnames';
 import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router';
 
 class Login extends Component {
 
@@ -33,8 +34,23 @@ class Login extends Component {
         this.props.loginUser(user);
     }
 
-    componentWillReceiveProps(nextProps) {
+	   componentDidMount() {
+        if(this.props.auth.isAuthenticated) {
+		if (this.props.auth.user.group ==='admin') 
+            this.props.history.push('/admin');
+		else
+            this.props.history.push('/');
+        }
+    }
 
+
+	 componentWillReceiveProps(nextProps) {
+        if(nextProps.auth.isAuthenticated) {
+		if (nextProps.auth.user.group ==='admin') 
+            this.props.history.push('/admin');
+		else
+            this.props.history.push('/')
+        }
         if(nextProps.errors) {
             this.setState({
                 errors: nextProps.errors
@@ -87,11 +103,16 @@ class Login extends Component {
 }
 
 Login.propTypes = {
+    loginUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 }
 
+
 const mapStateToProps = (state) => ({
+    auth: state.auth,
     errors: state.errors
 })
 
-export  default connect(mapStateToProps, { loginUser })(Login);
+
+export  default withRouter(connect(mapStateToProps, { loginUser })(Login));

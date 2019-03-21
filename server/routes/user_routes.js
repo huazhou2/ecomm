@@ -8,6 +8,7 @@ const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 
 const User = require('../models/customers');
+const secret='huazhou';
 
 router.post('/register', function(req, res) {
   const {errors, isValid} = validateRegisterInput(req.body);
@@ -32,6 +33,8 @@ router.post('/register', function(req, res) {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
+	group:'regular',
+	products:[],
         avatar,
       });
 
@@ -55,11 +58,9 @@ router.post('/register', function(req, res) {
 
 router.post('/login', (req, res) => {
   const {errors, isValid} = validateLoginInput(req.body);
-
   if (!isValid) {
     return res.status(400).json(errors);
   }
-
   const email = req.body.email;
   const password = req.body.password;
 
@@ -74,10 +75,12 @@ router.post('/login', (req, res) => {
           id: user.id,
           name: user.name,
           avatar: user.avatar,
+          group:user.group,
+	  products:user.products
         };
         jwt.sign(
           payload,
-          'secret',
+          secret,
           {
             expiresIn: 3600,
           },
@@ -103,19 +106,26 @@ router.get(
   '/me',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
+	  console.log('inside me')
     return res.json({
       id: req.user.id,
       name: req.user.name,
       email: req.user.email,
+      group:req.user.group,
+      products: req.user.products
     });
   },
 );
 
-router.get('/getdata', function(req, res) {
+router.get('/getdata', 
+	passport.authenticate('jwt',{session:false}),
+	(req, res) => {
+		if (req.user.group==='admin')
   User.find((err, data) => {
     if (err) return res.json('got errors');
-    res.status(200).send(data);
-  });
-});
+    res.status(200).send(data);})
+	  else 
+        res.status(401).send({Errors: 'You are not admin'}); }
+);
 
 module.exports = router;
