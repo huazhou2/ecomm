@@ -13,6 +13,7 @@ const secret='huazhou';
 router.post('/register', function(req, res) {
   const {errors, isValid} = validateRegisterInput(req.body);
 
+	console.log('register',errors);
   if (!isValid) {
     return res.status(400).json(errors);
   }

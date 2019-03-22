@@ -34,5 +34,5 @@ app.get('/*', function(req, res) {
   res.sendFile('index.html', {root: path.join(__dirname, '../client/build')});
 });
 app.listen(port, () => {
-  console.log(`Server is not running on Port ${port}`);
+  console.log(`Server is running on Port ${port}`);
 });

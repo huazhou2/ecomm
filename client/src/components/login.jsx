@@ -68,6 +68,7 @@ class Login extends Component {
                     <input
                     type="email"
                     placeholder="Email"
+		    form="novalidatedform"
                     className={classnames('form-control form-control-lg', {
                         'is-invalid': errors.email
                     })}

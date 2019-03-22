@@ -89,10 +89,10 @@ class Header extends Component {
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           {this.props.location.pathname !== '/' && (
-            <a href="/" onClick={this.goBack}>
+            <span onClick={this.goBack}>
               {' '}
               <i className="fa fa-arrow-left fa-2x " />
-            </a>
+            </span>
           )}
           <a className="navbar-brand ml-2" href="/">
             Lily Massage Supplies{' '}

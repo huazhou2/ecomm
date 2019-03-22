@@ -18,6 +18,7 @@ export const registerUser = (user, history) => dispatch => {
     axios.post('/api/customers/register', user)
             .then(res => history.push('/login'))
             .catch(err => {
+		    console.log('in register dispatch:',err);
                 dispatch({
                     type: GET_ERRORS,
                     payload: err.response.data
