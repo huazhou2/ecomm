@@ -125,8 +125,10 @@ class Header extends Component {
                     {this.getGroup2(item).map((item2, j) => (
                       <li key={j}
                           clasName="navbar-toggler"
-                          data-target="#storemenu"
-			  data-toggle={`${window.innerWidth< 500 ? "collapse":""}`} key={j}>
+                          data-target=".navbar-collapse.show"
+			  //data-toggle={`${window.innerWidth< 500 ? "collapse":""}`} key={j}>
+			    data-toggle='collapse'
+			    key={j}>
                         <Link
                           to={`/groups/${item2}`}>
                           {' '}
