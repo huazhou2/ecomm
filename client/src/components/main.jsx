@@ -25,7 +25,7 @@ class Main extends Component {
         {dataimg.map((item,i) => (
           <div className="row" key={i}>
             {item.map((item2,j) => (
-              <div className="col-sm-3 card border-primary text-center" key={j}>
+              <div className="col-sm-3 card text-center px-1 mb-2" key={j}>
 		  <a className='d-flex flex-column flex-fill' href={`/products/${item2.name}`}>    <div className='card-body'> 
                 <img id='thum_img' src={item2.link}  alt="noimg" />
 	</div>

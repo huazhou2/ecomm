@@ -88,7 +88,7 @@ class Header extends Component {
         <nav className="navbar navbar-expand-sm navbar-light bg-dark fixed-top">
           <div className="col-lg-3 col-md-6 my-sm-3 d-flex flex-row justify-content-between">
             {this.props.location.pathname !== '/' && (
-              <span className='d-block d-md-none' onClick={this.goBack}>
+              <span className="d-block d-md-none" onClick={this.goBack}>
                 {' '}
                 <i className="fa fa-arrow-left fa-2x " />
               </span>
@@ -123,17 +123,12 @@ class Header extends Component {
                   </a>
                   <ul className="dropdown-menu">
                     {this.getGroup2(item).map((item2, j) => (
-                      <li key={j}
-                          clasName="navbar-toggler"
-                          data-target=".navbar-collapse.show"
-			  //data-toggle={`${window.innerWidth< 500 ? "collapse":""}`} key={j}>
-			    data-toggle='collapse'
-			    key={j}>
-                        <Link
-                          to={`/groups/${item2}`}>
-                          {' '}
-                          {item2}
-                        </Link>
+                      <li
+                        key={j}
+                        className="nav-item"
+                        data-toggle="collapse"
+                        data-target=".navbar-collapse.show">
+                        <Link to={`/groups/${item2}`}> {item2}</Link>
                       </li>
                     ))}
                   </ul>
@@ -148,9 +143,9 @@ class Header extends Component {
                 placeholder="Search"
                 aria-label="Search"
               />
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fa fa-search" />
+              <div className="input-group-append">
+                <button className="btn btn-primary" type="button">
+                  <i className="fa fa-search" />
                 </button>
               </div>
             </div>
