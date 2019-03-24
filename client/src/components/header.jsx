@@ -7,7 +7,6 @@ import {withRouter, Link} from 'react-router-dom';
 import {logoutUser} from '../reducers/actions';
 import data from '../data/massagedata.json';
 
-
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -17,10 +16,10 @@ class Header extends Component {
   goBack() {
     this.props.history.goBack();
   }
-	onLogout=(e)=> {
+  onLogout = e => {
     e.preventDefault();
     this.props.logoutUser(this.props.history);
-  }
+  };
 
   getGroup1() {
     const groups = [];
@@ -44,8 +43,8 @@ class Header extends Component {
   topright_menu() {
     const {isAuthenticated, user} = this.props.auth;
     return (
-      <ul className="navbar-nav ml-auto mt-2 mt-lg-3 ">
-        <li className="nav-item dropdown" key='navall'>
+      <ul className="navbar-nav">
+        <li className="nav-item dropdown" key="navall">
           {isAuthenticated ? (
             <a
               href="/"
@@ -69,12 +68,11 @@ class Header extends Component {
 
           {isAuthenticated ? (
             <ul className="dropdown-menu">
-              <li key='navall1'>
+              <li key="navall1">
                 <Link to="/accounts/:id">Your account</Link>
               </li>
-	      <li key='navall2' >
-		      <Link to='/logout'>
-			      Log out</Link>
+              <li key="navall2">
+                <Link to="/logout">Log out</Link>
               </li>
             </ul>
           ) : (
@@ -86,30 +84,32 @@ class Header extends Component {
   }
   render() {
     return (
-      <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          {this.props.location.pathname !== '/' && (
-            <span onClick={this.goBack}>
-              {' '}
-              <i className="fa fa-arrow-left fa-2x " />
-            </span>
-          )}
-          <a className="navbar-brand ml-2" href="/">
-            Lily Massage Supplies{' '}
-          </a>
+      <div style={{fontSize: '1.3em'}}>
+        <nav className="navbar navbar-expand-sm navbar-light bg-dark fixed-top">
+          <div className="col-lg-3 col-md-6 my-sm-3 d-flex flex-row justify-content-between">
+            {this.props.location.pathname !== '/' && (
+              <span className='d-block d-md-none' onClick={this.goBack}>
+                {' '}
+                <i className="fa fa-arrow-left fa-2x " />
+              </span>
+            )}
+            <a
+              className="navbar-brand ml-sm-2 text-white d-inline-block"
+              href="/">
+              Lily Massage Supplies{' '}
+            </a>
 
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#storemenu">
-            <span className="navbar-toggler-icon" />
-          </button>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#storemenu">
+              <span className="navbar-toggler-icon" />
+            </button>
+          </div>
 
-          <div
-            className="collapse navbar-collapse hide d-sm-block"
-            id="storemenu">
-            <ul className="navbar-nav ml-auto mt-2 mt-lg-3">
+          <div className="collapse navbar-collapse  d-md-block" id="storemenu">
+            <ul className="navbar-nav col-lg-3 col-md-6 d-flex justify-content-between align-items-stretch">
               {this.getGroup1().map((item, i) => (
                 <li className="nav-item dropdown" key={i}>
                   <a
@@ -123,30 +123,35 @@ class Header extends Component {
                   </a>
                   <ul className="dropdown-menu">
                     {this.getGroup2(item).map((item2, j) => (
-                      <li key={j}>
-                        <Link to={`/groups/${item2}`}> {item2}</Link>
+                      <li key={j}
+                          clasName="navbar-toggler"
+                          data-target="#storemenu"
+			  data-toggle={`${window.innerWidth< 500 ? "collapse":""}`} key={j}>
+                        <Link
+                          to={`/groups/${item2}`}>
+                          {' '}
+                          {item2}
+                        </Link>
                       </li>
                     ))}
                   </ul>
                 </li>
               ))}
             </ul>
-
-            {this.topright_menu()}
-
-            <form className="form-inline mx-auto my-2 my-lg-3">
+            <div className="mx-sm-auto">{this.topright_menu()}</div>
+            <div className="input-group col-lg-4 pl-0">
               <input
-                className="form-control mr-sm-2"
+                className="form-control"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
               />
-              <button
-                className="btn btn-outline-success my-2 my-sm-0"
-                type="submit">
-                Search
-              </button>
-            </form>
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fa fa-search" />
+                </button>
+              </div>
+            </div>
           </div>
         </nav>
       </div>

@@ -56,7 +56,8 @@ class Register extends Component {
     render() {
         const { errors } = this.state;
         return(
-        <div className="container" style={{ marginTop: '50px', width: '700px'}}>
+		//<div className="container col-md-6 col-lg-4" style={{ marginTop: '120px', maxWidth: '700px'}}>
+        <div className="container d-flex flex-column justify-content-center border border-information mx-auto" style={{ marginTop: '120px', maxWidth: '800px'}}>
             <h2 style={{marginBottom: '40px'}}>Registration</h2>
             <form onSubmit={ this.handleSubmit }>
                 <div className="form-group">

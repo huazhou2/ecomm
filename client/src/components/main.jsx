@@ -26,11 +26,11 @@ class Main extends Component {
           <div className="row" key={i}>
             {item.map((item2,j) => (
               <div className="col-sm-3 card border-primary text-center" key={j}>
-		  <a href={`/products/${item2.name}`}>    <div className='card-body'> 
+		  <a className='d-flex flex-column flex-fill' href={`/products/${item2.name}`}>    <div className='card-body'> 
                 <img id='thum_img' src={item2.link}  alt="noimg" />
 	</div>
 	
-	<div className='card-footer bg-success'>
+	<div className='mt-auto card-footer bg-success'>
 		<h3>{item2.name}</h3>
 	</div>
 	</a>
