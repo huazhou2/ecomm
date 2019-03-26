@@ -57,13 +57,14 @@ class Register extends Component {
     return (
       //<div className="container col-md-6 col-lg-4" style={{ marginTop: '120px', maxWidth: '700px'}}>
       <div
-        className="container d-flex flex-column justify-content-center bg-light border border-information mx-auto"
-        style={{marginTop: '120px', maxWidth: '600px'}}>
+        className="container d-flex flex-column justify-content-center 
+			bg-light border border-information mx-auto rounded mt-0 mt-sm-4 py-5"
+        style={{ maxWidth: '600px'}}>
         <Link
           to="/"
           style={{textDecoration: 'none'}}
           className="d-block text-center text-primary mt-3 mb-5">
-          <h2> Lili Massage Supplies</h2>
+          <h2 className='fa fa-home fa-3x'> Lili Massage Supplies</h2>
         </Link>
         <h2 style={{marginBottom: '40px'}}>Registration</h2>
         <form onSubmit={this.handleSubmit}>
@@ -132,6 +133,9 @@ class Register extends Component {
             <button type="submit" className="btn btn-primary">
               Register User
             </button>
+            <Link to="/login" className="ml-3 d-inline-block">
+             Login 
+            </Link>
           </div>
         </form>
       </div>

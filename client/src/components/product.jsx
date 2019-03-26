@@ -14,7 +14,6 @@ class Product extends Component {
 	))}*/
   carousel_img = pics => {
     return (
-      <div className="container-fluid">
         <div id="caras" className="carousel slide" data-ride="carousel">
           <div className="carousel-inner">
             {pics.map((item, j) => (
@@ -38,25 +37,24 @@ class Product extends Component {
                   className="img-responsive"
                   src={`/static/${item.linkimg}`}
                   alt={item.item}
-                />{' '}
+                />
               </li>
             ))}
           </ul>
 
           <a
-            className="carousel-control-prev d-sm-none"
+            className="carousel-control-prev d-none"
             href="#caras"
             data-slide="prev">
             <span class="carousel-control-prev-icon" />
           </a>
           <a
-            className="carousel-control-next d-sm-none"
+            className="carousel-control-next d-none"
             href="#caras"
             data-slide="next">
             <span class="carousel-control-next-icon" />
           </a>
         </div>
-      </div>
     );
   };
 
@@ -68,15 +66,15 @@ class Product extends Component {
     return (
       <div className="center_body">
         <div className="row">
-          <div className="d-flex flex-column col-sm-7 card border-primary text-center flex-fill">
-            <div className="card-body">{this.carousel_img(items)}</div>
+          <div className="d-flex flex-column col-sm-7 card border-info text-center flex-fill">
+            <div className="card-body px-1">{this.carousel_img(items)}</div>
 
-            <div className="card-footer bg-information">
+            <div className="card-footer bg-info">
               <h3>{item.item}</h3>
             </div>
           </div>
           <div className="col-sm-1" />
-          <div className="col-sm-4 card border-primary text-center">
+          <div className="col-sm-4 card border-info text-center">
             <div className="card-body">
               <h3>{item.item}</h3>
               <p> description here</p>

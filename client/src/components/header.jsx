@@ -85,7 +85,7 @@ class Header extends Component {
   render() {
     return (
       <div style={{fontSize: '1.3em'}}>
-        <nav className="navbar navbar-expand-sm navbar-light bg-dark fixed-top">
+        <nav className="navbar navbar-expand-sm navbar-light bg-dark fixed-top px-0">
           <div className="col-lg-3 col-md-6 my-sm-3 d-flex flex-row justify-content-between">
             {this.props.location.pathname !== '/' && (
               <span className="d-block d-md-none" onClick={this.goBack}>
@@ -151,6 +151,9 @@ class Header extends Component {
             </div>
           </div>
         </nav>
+	<div class="spacer">
+		    &nbsp;
+	    </div>
       </div>
     );
   }

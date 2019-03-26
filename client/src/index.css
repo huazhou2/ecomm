@@ -1,15 +1,31 @@
-body {
+/*body {
   padding-top: 100px;
 }
 @media screen and (max-width: 768px) {
   body {
     padding-top: 70px;
   }
+}*/
+.spacer {
+  width: 100%;
+  height: 95px;
+}
+@media screen and (max-width: 768px) {
+  .spacer {
+    width: 100%;
+    height: 65px;
+  }
 }
 .center_body {
   width: 80%;
   margin: auto;
 }
+@media screen and (max-width: 768px) {
+  .center_body {
+  width: 100%;
+  margin: auto;
+  }
+}*/
 
 .dropdown-content {
   display: none;
@@ -55,8 +71,6 @@ body {
   cursor: pointer;
 }
 
-
-
 #thum_img {
   width: 100%;
   height: auto;
@@ -100,12 +114,12 @@ body {
   width: auto;
 }
 #caras .carousel-indicators li img {
-  display: block;
-  width: 40%;
-  height: auto;
-  margin: 0 auto;
-  justify-content: center;
-}
+	  display: block;
+	    width: 40%;
+	      height: auto;
+	        margin: 0 auto;
+		  justify-content: center;
+	  }
 .scroll {
   opacity: 0.3;
   background-color: white;

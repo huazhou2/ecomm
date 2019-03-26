@@ -59,16 +59,16 @@ class Login extends Component {
     return (
       <div
         className="container d-flex flex-column justify-content-center 
-			bg-light border border-information mx-auto"
+			bg-light border border-information mx-auto rounded mt-0 mt-sm-4 py-5"
         style={{
-          marginTop: '120px',
           maxWidth: '600px',
         }}>
         <Link
           to="/"
           style={{textDecoration: 'none'}}
           className="d-block text-center text-primary mt-3 mb-5">
-          <h2> Lili Massage Supplies</h2>
+	  
+          <h2 className='fa fa-home fa-3x'> Lili Massage Supplies</h2>
         </Link>
 
         <h2 className="ml-0" style={{marginBottom: '40px'}}>
