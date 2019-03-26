@@ -88,7 +88,7 @@ class Header extends Component {
         <nav className="navbar navbar-expand-sm navbar-light bg-dark fixed-top px-0">
           <div className="col-lg-3 col-md-6 my-sm-3 d-flex flex-row justify-content-between">
             {this.props.location.pathname !== '/' && (
-              <span className="d-block d-md-none" onClick={this.goBack}>
+              <span className="d-block d-md-none ml-0" onClick={this.goBack}>
                 {' '}
                 <i className="fa fa-arrow-left fa-2x " />
               </span>
