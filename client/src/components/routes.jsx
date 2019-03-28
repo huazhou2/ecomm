@@ -37,7 +37,7 @@ class Routes extends Component {
               render={({match}) => (
                 <Product
                   match={match}
-                  data={data.filter(item => item.item === match.params.id1)}
+                  data={data.filter(item => item.name === match.params.id1)}
                 />
               )}
             />

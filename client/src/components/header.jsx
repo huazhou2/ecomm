@@ -43,17 +43,19 @@ class Header extends Component {
   topright_menu() {
     const {isAuthenticated, user} = this.props.auth;
     return (
-      <ul className="navbar-nav">
+      <ul className="navbar-nav d-flex justify-content-center">
         <li className="nav-item dropdown" key="navall">
           {isAuthenticated ? (
             <a
               href="/"
-              className="dropdown-toggle"
               data-toggle="dropdown"
               role="button"
               aria-haspopup="true"
               aria-expanded="false">
-              {user.name}
+       <img src={user.avatar} alt={user.name} title={user.name}
+                        className="rounded-circle"
+			style={{ width: '25px', marginRight: '5px'}}/>
+		 <i className='fa fa-angle-down py-2 float-right d-block'/>
             </a>
           ) : (
             <a
@@ -86,9 +88,9 @@ class Header extends Component {
     return (
       <div style={{fontSize: '1.3em'}}>
         <nav className="navbar navbar-expand-sm navbar-light bg-dark fixed-top px-0">
-          <div className="col-lg-3 col-md-6 my-sm-3 d-flex flex-row justify-content-between">
+          <div className="col-sm-4 col-lg-3 col-md-6 my-sm-3 d-flex flex-row justify-content-between ml-0">
             {this.props.location.pathname !== '/' && (
-              <span className="d-block d-md-none ml-0" onClick={this.goBack}>
+              <span className="d-block d-md-none" onClick={this.goBack}>
                 {' '}
                 <i className="fa fa-arrow-left fa-2x " />
               </span>
@@ -108,35 +110,36 @@ class Header extends Component {
             </button>
           </div>
 
-          <div className="collapse navbar-collapse  d-md-block" id="storemenu">
-            <ul className="navbar-nav col-lg-3 col-md-6 d-flex justify-content-between align-items-stretch">
+          <div className="collapse navbar-collapse hide d-md-block" id="storemenu">
+            <ul className="navbar-nav col-lg-3 col-md-6 d-flex justify-content-between align-items-stretch pl-3" >
               {this.getGroup1().map((item, i) => (
                 <li className="nav-item dropdown" key={i}>
                   <a
                     href="/"
-                    className="dropdown-toggle"
+                    className="d-block text-warning"
                     data-toggle="dropdown"
                     role="button"
                     aria-haspopup="true"
                     aria-expanded="false">
-                    {item}
+		    {item}
+	    <i className='fa fa-angle-down py-2  pl-2 float-right d-block'/>
                   </a>
-                  <ul className="dropdown-menu">
+                  <ul className="dropdown-menu bg-secondary">
                     {this.getGroup2(item).map((item2, j) => (
                       <li
                         key={j}
-                        className="nav-item"
+			className="nav-item"
                         data-toggle="collapse"
                         data-target=".navbar-collapse.show">
-                        <Link to={`/groups/${item2}`}> {item2}</Link>
+			<Link to={`/groups/${item2}`}> <span className='text-warning'> {item2}</span></Link>
                       </li>
                     ))}
                   </ul>
                 </li>
               ))}
             </ul>
-            <div className="mx-sm-auto">{this.topright_menu()}</div>
-            <div className="input-group col-lg-4 pl-0">
+            <div className="col-sm-4">{this.topright_menu()}</div>
+            <div className="input-group col-sm-4">
               <input
                 className="form-control"
                 type="search"

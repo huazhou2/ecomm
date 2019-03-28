@@ -22,7 +22,7 @@ class Product extends Component {
                   id="full_img"
                   className="img-fluid"
                   src={`/static/${item.linkimg}`}
-                  alt={item.item}
+                  alt={item.name}
                 />
               </div>
             ))}

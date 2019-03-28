@@ -8,7 +8,7 @@ class Main extends Component {
     const contents = [];
     var content = [];
     data.forEach((item, i) => {
-      content.push({link:'/static/' + item.linkimg,name: item.item});
+      content.push({link:'/static/' + item.linkimg,name: item.name});
       if (i > 1 && i % col_num === col_num - 1) {
         contents.push(content);
         content = [];
