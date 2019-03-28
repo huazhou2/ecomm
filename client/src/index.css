@@ -27,7 +27,29 @@
  margin: auto;
  overflow: hidden;
   }
-}*/
+}
+@media screen and (max-width: 768px) {
+  #prodlist {
+ display:flex;
+    flex-direction: row;
+    justify-content:space-between;
+
+    }
+  #prodlist img {
+   max-width: 30%;
+   height:auto;
+   }
+   }
+
+  #prodlist {
+	  display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    }
+  #prodlist img {
+    width: 80%;
+    }
+
 
 .dropdown-content {
   display: none;

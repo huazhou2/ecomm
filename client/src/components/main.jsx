@@ -23,16 +23,13 @@ class Main extends Component {
     return (
       <div className="center_body">
         {dataimg.map((item,i) => (
-          <div className="row" key={i}>
+          <div  className="row" key={i}>
             {item.map((item2,j) => (
-              <div className="col-sm-2 card text-center mx-1 mb-3" key={j}>
-		  <a className='d-flex flex-column flex-fill' href={`/products/${item2.name}`}>    <div className='card-body'> 
-                <img id='thum_img' src={item2.link}  alt="noimg" />
-	</div>
+              <div  className="col-sm-2 card text-center mx-1 mb-3" key={j}>
+		  <a id='prodlist' className='flex-fill' href={`/products/${item2.name}`}>   
+                <img id='thum_img2' className='d-inline-block float-left' src={item2.link}  alt="noimg" />
 	
-	<div className='mt-auto card-footer bg-success'>
-		<h3>{item2.name}</h3>
-	</div>
+		<span className='' > Price {item2.name}</span>
 	</a>
               </div>
             ))}
