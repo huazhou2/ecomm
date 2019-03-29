@@ -65,19 +65,22 @@ class Product extends Component {
     console.log(items);
     return (
       <div className="center_body">
-        <div className="row">
-          <div className="d-flex flex-column col-sm-7 card border-info text-center flex-fill">
+        <div className="row bg-light">
+          <div className="d-flex flex-column col-sm-7 card bg-light text-center flex-fill">
             <div className="card-body px-1">{this.carousel_img(items)}</div>
 
-            <div className="card-footer bg-info">
-              <h3>{item.item}</h3>
+            <div className="card-footer bg-light d-flex justify-content-around my-3">
+              <h3>Price: ${item.price}</h3>
+            <button type="submit" className="btn btn-primary">
+             Add to Cart 
+            </button>
             </div>
           </div>
           <div className="col-sm-1" />
-          <div className="col-sm-4 card border-info text-center">
-            <div className="card-body">
-              <h3>{item.item}</h3>
-              <p> description here</p>
+          <div className="col-sm-4 card bg-light text-center">
+            <div className="card-footer">
+              <h3>{item.name}</h3>
+              <p> {item.description}</p>
             </div>
           </div>
         </div>

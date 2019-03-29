@@ -111,7 +111,7 @@ class Header extends Component {
           </div>
 
           <div className="collapse navbar-collapse hide d-md-block" id="storemenu">
-            <ul className="navbar-nav col-lg-3 col-md-6 d-flex justify-content-between align-items-stretch pl-3" >
+            <ul className="navbar-nav col-lg-3 col-md-6 d-flex justify-content-between pl-3" >
               {this.getGroup1().map((item, i) => (
                 <li className="nav-item dropdown" key={i}>
                   <a
@@ -122,7 +122,7 @@ class Header extends Component {
                     aria-haspopup="true"
                     aria-expanded="false">
 		    {item}
-	    <i className='fa fa-angle-down py-2  pl-2 float-right d-block'/>
+	    <i className='fa fa-angle-down py-2 pl-2 float-right d-block'/>
                   </a>
                   <ul className="dropdown-menu bg-secondary">
                     {this.getGroup2(item).map((item2, j) => (
