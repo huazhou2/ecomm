@@ -39,49 +39,61 @@ class Header extends Component {
     });
     return groups;
   }
+  shop_cart() {
+	  return  <span id="cart-count">
+			  <span className='text-primary' >5</span>
+</span> 
+  }
 
   topright_menu() {
     const {isAuthenticated, user} = this.props.auth;
     return (
-      <ul className="navbar-nav d-flex justify-content-center">
-        <li className="nav-item dropdown" key="navall">
-          {isAuthenticated ? (
-            <a
-              href="/"
-              data-toggle="dropdown"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false">
-       <img src={user.avatar} alt={user.name} title={user.name}
-                        className="rounded-circle"
-			style={{ width: '25px', marginRight: '5px'}}/>
-		 <i className='fa fa-angle-down py-2 float-right d-block'/>
-            </a>
-          ) : (
-            <a
-              href="/"
-              data-toggle="dropdown"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false">
-              {user.name}
-            </a>
-          )}
+      <div>
+        <ul className="navbar-nav d-flex justify-content-center">
+          <li className="nav-item dropdown" key="navall">
+            {isAuthenticated ? (
+              <a
+                href="/"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <img
+                  src={user.avatar}
+                  alt={user.name}
+                  title={user.name}
+                  className="rounded-circle"
+                  style={{width: '25px', marginRight: '5px'}}
+                />
+                <i className="fa fa-angle-down py-2 float-right d-block" />
+              </a>
+            ) : (
+              <a
+                href="/"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false">
+                {user.name}
+              </a>
+            )}
 
-          {isAuthenticated ? (
-            <ul className="dropdown-menu">
-              <li key="navall1">
-                <Link to="/accounts/:id">Your account</Link>
-              </li>
-              <li key="navall2">
-                <Link to="/logout">Log out</Link>
-              </li>
-            </ul>
-          ) : (
-            <Link to="/login">Signin/Register</Link>
-          )}
-        </li>
-      </ul>
+            {isAuthenticated ? (
+              <ul className="dropdown-menu">
+                <li key="navall1">
+                  <Link to="/accounts/:id">Your account</Link>
+                </li>
+                <li key="navall2">
+                  <Link to="/logout">Log out</Link>
+                </li>
+              </ul>
+            ) : (
+              <Link to="/login">Signin/Register</Link>
+            )}
+          </li>
+        </ul>
+        <ul className='d-none d-sm-block'>{this.shop_cart()};</ul>
+      </div>
     );
   }
   render() {
@@ -100,6 +112,7 @@ class Header extends Component {
               href="/">
               Lily Massage Supplies{' '}
             </a>
+        <span className='d-block d-sm-none ml-0 my-auto h-50 w-50'>{this.shop_cart()};</span>
 
             <button
               className="navbar-toggler"
@@ -110,8 +123,10 @@ class Header extends Component {
             </button>
           </div>
 
-          <div className="collapse navbar-collapse hide d-md-block" id="storemenu">
-            <ul className="navbar-nav col-lg-3 col-md-6 d-flex justify-content-between pl-3" >
+          <div
+            className="collapse navbar-collapse hide d-md-block"
+            id="storemenu">
+            <ul className="navbar-nav col-lg-3 col-md-6 d-flex justify-content-between pl-3">
               {this.getGroup1().map((item, i) => (
                 <li className="nav-item dropdown" key={i}>
                   <a
@@ -121,17 +136,20 @@ class Header extends Component {
                     role="button"
                     aria-haspopup="true"
                     aria-expanded="false">
-		    {item}
-	    <i className='fa fa-angle-down py-2 pl-2 float-right d-block'/>
+                    {item}
+                    <i className="fa fa-angle-down py-2 pl-2 float-right d-block" />
                   </a>
                   <ul className="dropdown-menu bg-secondary">
                     {this.getGroup2(item).map((item2, j) => (
                       <li
                         key={j}
-			className="nav-item"
+                        className="nav-item"
                         data-toggle="collapse"
                         data-target=".navbar-collapse.show">
-			<Link to={`/groups/${item2}`}> <span className='text-warning'> {item2}</span></Link>
+                        <Link to={`/groups/${item2}`}>
+                          {' '}
+                          <span className="text-warning"> {item2}</span>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -154,9 +172,7 @@ class Header extends Component {
             </div>
           </div>
         </nav>
-	<div class="spacer">
-		    &nbsp;
-	    </div>
+        <div class="spacer">&nbsp;</div>
       </div>
     );
   }
