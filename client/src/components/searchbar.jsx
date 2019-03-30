@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Autosuggest from 'react-autosuggest';
 import data from '../data/massagedata.json';
 
-const languages=data.map(item=>item.name);
+const languages = data.map(item => item.name);
 
 const theme = {
   container: {
@@ -11,7 +11,7 @@ const theme = {
   },
   input: {
     width: '100%',
-    padding: '3px 0',
+    padding: '1px 0',
     borderTopLeftRadius: '5px',
     borderBottomLeftRadius: '5px',
   },
@@ -52,10 +52,11 @@ function getSuggestions(value) {
   if (escapedValue === '') {
     return [];
   }
-
   const regex = new RegExp('^' + escapedValue, 'i');
-
-  return [...new Set(languages.filter(language => regex.test(language)))].slice(0,5);
+  return [...new Set(languages.filter(language => regex.test(language)))].slice(
+    0,
+    5,
+  );
 }
 
 function getSuggestionValue(suggestion) {
@@ -74,7 +75,6 @@ class SearchBar extends Component {
       suggestions: [],
     };
   }
-
   onChange = (_, {newValue}) => {
     const {id, onChange} = this.props;
 
@@ -95,8 +95,12 @@ class SearchBar extends Component {
     });
   };
 
+  handleSubmit = e => {
+    console.log('searching ', this.state.value);
+  };
+
   render() {
-    const {id,placeholder} = this.props;
+    const {id, placeholder} = this.props;
     const {value, suggestions} = this.state;
     const inputProps = {
       placeholder,
@@ -105,16 +109,33 @@ class SearchBar extends Component {
     };
 
     return (
-      <Autosuggest
-        id={id}
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        inputProps={inputProps}
-        theme={theme}
-      />
+      <form
+        className="form-inline flex-nowrap flex-fill"
+        onSubmit={this.handleSubmit}>
+        <Autosuggest
+          className="form-control d-inline-block"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          style={{width: 'inherit'}}
+          id={id}
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          getSuggestionValue={getSuggestionValue}
+          renderSuggestion={renderSuggestion}
+          inputProps={inputProps}
+          theme={theme}
+        />
+        <div className="input-group-append">
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={this.handleSubmit}>
+            <i className="fa fa-search" />
+          </button>
+        </div>
+      </form>
     );
   }
 }

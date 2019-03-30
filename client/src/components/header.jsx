@@ -176,18 +176,7 @@ class Header extends Component {
               {this.topright_menu()}
             </div>
             <div className="input-group col-xs-12 col-sm-6 col-md-4">
-              <SearchBar
-                className="form-control"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                style={{width: 'inherit'}}
-              />
-              <div className="input-group-append">
-                <button className="btn btn-primary" type="button">
-                  <i className="fa fa-search" />
-                </button>
-              </div>
+                <SearchBar />
             </div>
           </div>
         </nav>
