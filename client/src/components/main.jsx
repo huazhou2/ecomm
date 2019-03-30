@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 
+//add in some random stuff
 class Main extends Component {
  
   prodMain(col_num) {
