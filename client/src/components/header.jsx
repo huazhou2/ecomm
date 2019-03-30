@@ -6,6 +6,7 @@ import 'bootstrap';
 import {withRouter, Link} from 'react-router-dom';
 import {logoutUser} from '../reducers/actions';
 import data from '../data/massagedata.json';
+import SearchBar from './searchbar';
 
 class Header extends Component {
   constructor(props) {
@@ -141,7 +142,7 @@ class Header extends Component {
           <div
             className="collapse navbar-collapse hide d-md-block"
             id="storemenu">
-            <ul className="navbar-nav col-lg-3 col-md-6 d-flex justify-content-between pl-3">
+            <ul className="navbar-nav col-xs-12 col-md-6 col-lg-3 d-flex justify-content-between pl-3">
               {this.getGroup1().map((item, i) => (
                 <li className="nav-item dropdown" key={i}>
                   <a
@@ -171,13 +172,16 @@ class Header extends Component {
                 </li>
               ))}
             </ul>
-            <div className="col-sm-4">{this.topright_menu()}</div>
-            <div className="input-group col-sm-4">
-              <input
+            <div className="col-xs-12 col-sm-6 col-md-4">
+              {this.topright_menu()}
+            </div>
+            <div className="input-group col-xs-12 col-sm-6 col-md-4">
+              <SearchBar
                 className="form-control"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                style={{width: 'inherit'}}
               />
               <div className="input-group-append">
                 <button className="btn btn-primary" type="button">
@@ -187,7 +191,7 @@ class Header extends Component {
             </div>
           </div>
         </nav>
-        <div class="spacer">&nbsp;</div>
+        <div className="spacer">&nbsp;</div>
       </div>
     );
   }
