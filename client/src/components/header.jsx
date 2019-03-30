@@ -39,10 +39,15 @@ class Header extends Component {
     });
     return groups;
   }
-  shop_cart() {
-	  return  <span id="cart-count">
-			  <span className='text-primary' >5</span>
-</span> 
+				shop_cart() {
+					return <a href='/'> <span className='fa-stack  mr-xs-2' style={{fontSize:'1.25em',marginTop:'-0.2em'}}>
+		  <i className='fa fa-shopping-cart fa-stack-1x text-white'/>
+		  <span className='fa fa-stack-1x text-warning'
+			  style={{marginTop:'-0.5em', marginLeft:'0.5em',fontSize:'.8em'}}> 
+			  <i className='fa fa-stack-1x fa-circle'/>
+			  <i className='fa fa-stack-1x fa-inverse text-dark'>5</i>
+		  </span>
+  </span> </a>
   }
 
   topright_menu() {
@@ -91,8 +96,8 @@ class Header extends Component {
               <Link to="/login">Signin/Register</Link>
             )}
           </li>
+	  <li className='d-none d-sm-block'>{this.shop_cart()}</li>
         </ul>
-        <ul className='d-none d-sm-block'>{this.shop_cart()};</ul>
       </div>
     );
   }
@@ -100,7 +105,7 @@ class Header extends Component {
     return (
       <div style={{fontSize: '1.3em'}}>
         <nav className="navbar navbar-expand-sm navbar-light bg-dark fixed-top px-0">
-          <div className="col-sm-4 col-lg-3 col-md-6 my-sm-3 d-flex flex-row justify-content-between ml-0">
+          <div className="col-xs-12 col-sm-4 col-lg-3 col-md-6 my-sm-3 d-flex flex-row justify-content-between ml-0">
             {this.props.location.pathname !== '/' && (
               <span className="d-block d-md-none" onClick={this.goBack}>
                 {' '}
@@ -108,11 +113,11 @@ class Header extends Component {
               </span>
             )}
             <a
-              className="navbar-brand ml-sm-2 text-white d-inline-block"
+              className="navbar-brand ml-sm-2 text-white d-block"
               href="/">
               Lily Massage Supplies{' '}
             </a>
-        <span className='d-block d-sm-none ml-0 my-auto h-50 w-50'>{this.shop_cart()};</span>
+	    <span className='d-block d-sm-none ml-3'>{this.shop_cart()}</span>
 
             <button
               className="navbar-toggler"
