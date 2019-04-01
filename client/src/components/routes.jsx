@@ -41,6 +41,15 @@ class Routes extends Component {
                 />
               )}
             />
+            <Route
+              path="/search/:id1"
+              render={({match}) => (
+                <Main
+                  match={match}
+                  data={data.filter(item => item.name === match.params.id1)}
+                />
+              )}
+            />
             <Route exact path="/login" render={() => <Login data={data} />} />
             <Route exact path="/logout" render={() => <Logout data={data} />} />
             <Route

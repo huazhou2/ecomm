@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Autosuggest from 'react-autosuggest';
 import data from '../data/massagedata.json';
+import {withRouter} from 'react-router';
 
 const languages = data.map(item => item.name);
 
@@ -97,6 +98,7 @@ class SearchBar extends Component {
 
   handleSubmit = e => {
     console.log('searching ', this.state.value);
+	 this.props.history.push(`/search/${this.state.value}`);
   };
 
   render() {
@@ -140,4 +142,4 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
+export default withRouter(SearchBar);
