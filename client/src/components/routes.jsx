@@ -8,7 +8,9 @@ import Admin from './admin.jsx';
 import Logout from './logout.jsx';
 import Header from './header.jsx';
 import ScrollUp from './scrollup.jsx';
+import SearchRes from './searchres.jsx';
 import data from '../data/massagedata.json';
+
 
 class Routes extends Component {
 
@@ -44,10 +46,11 @@ class Routes extends Component {
             <Route
               path="/search/:id1"
               render={({match}) => (
-                <Main
+                <SearchRes
                   match={match}
-                  data={data.filter(item => item.name === match.params.id1)}
+                  data={data}
                 />
+
               )}
             />
             <Route exact path="/login" render={() => <Login data={data} />} />
@@ -62,8 +65,7 @@ class Routes extends Component {
     <Route render={()=><ScrollUp scrollStepInPx="50" delayInMs="16.66"/>} />
   </div>
     );
-  }
-}
+  } }
 
 
 export default Routes;

@@ -112,8 +112,7 @@ class SearchBar extends Component {
 
     return (
       <form
-        className="form-inline flex-nowrap flex-fill"
-        onSubmit={this.handleSubmit}>
+	      className="form-inline flex-nowrap flex-fill">
         <Autosuggest
           className="form-control d-inline-block"
           type="search"
@@ -132,6 +131,8 @@ class SearchBar extends Component {
         <div className="input-group-append">
           <button
             className="btn btn-primary"
+                        data-toggle="collapse"
+                        data-target=".navbar-collapse.show"
             type="button"
             onClick={this.handleSubmit}>
             <i className="fa fa-search" />
