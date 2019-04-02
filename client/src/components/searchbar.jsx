@@ -77,8 +77,6 @@ class SearchBar extends Component {
     };
   }
   onChange = (_, {newValue}) => {
-    const {id, onChange} = this.props;
-
     this.setState({
       value: newValue,
     });

@@ -12,49 +12,97 @@ class Product extends Component {
           />
       </ul>
 	))}*/
+  constructor(props) {
+    super(props);
+    this.state = {
+      size: props.data[0].size.split(',')[0],
+      price: props.data[0].price.split(',')[0],
+    };
+  }
+
   carousel_img = pics => {
     return (
-        <div id="caras" className="carousel slide" data-ride="carousel">
-          <div className="carousel-inner">
-            {pics.map((item, j) => (
-              <div className={`carousel-item ${j === 0 ? 'active' : ''}`}>
-                <img
-                  id="full_img"
-                  className="img-fluid"
-                  src={`/static/${item.linkimg}`}
-                  alt={item.name}
-                />
-              </div>
-            ))}
-          </div>
-          <ul className="carousel-indicators">
-            {pics.map((item, j) => (
-              <li
-                data-target="#caras"
-                data-slide-to={j}
-                className={`${j === 0 ? 'active' : ''}`}>
-                <img
-                  className="img-responsive"
-                  src={`/static/${item.linkimg}`}
-                  alt={item.item}
-                />
-              </li>
-            ))}
-          </ul>
-
-          <a
-            className="carousel-control-prev d-none"
-            href="#caras"
-            data-slide="prev">
-            <span class="carousel-control-prev-icon" />
-          </a>
-          <a
-            className="carousel-control-next d-none"
-            href="#caras"
-            data-slide="next">
-            <span class="carousel-control-next-icon" />
-          </a>
+      <div id="caras" className="carousel slide" data-ride="carousel">
+        <div className="carousel-inner">
+          {pics.map((item, j) => (
+            <div
+              key={`img_disp${j}`}
+              className={`carousel-item ${j === 0 ? 'active' : ''}`}>
+              <img
+                id="full_img"
+                className="img-fluid"
+                src={`/static/${item.linkimg}`}
+                alt={item.name}
+              />
+            </div>
+          ))}
         </div>
+        <ul className="carousel-indicators">
+          {pics.map((item, j) => (
+            <li
+              key={`indicator${j}`}
+              data-target="#caras"
+              data-slide-to={j}
+              className={`${j === 0 ? 'active' : ''}`}>
+              <img
+                className="img-responsive"
+                src={`/static/${item.linkimg}`}
+                alt={item.item}
+              />
+            </li>
+          ))}
+        </ul>
+
+        <a
+          className="carousel-control-prev d-none"
+          href="#caras"
+          data-slide="prev">
+          <span className="carousel-control-prev-icon" />
+        </a>
+        <a
+          className="carousel-control-next d-none"
+          href="#caras"
+          data-slide="next">
+          <span className="carousel-control-next-icon" />
+        </a>
+      </div>
+    );
+  };
+
+  prod_disp = item => {
+    return (
+	    <form className='text-left'>
+		    <label for="color" className=''>
+          Select a Color
+        </label>
+        <select
+          id="size"
+          name="size"
+          className="form-control mb-1"
+          onChange={this.handleInputChange}
+          value={this.state.size}>
+          {item.color.split(',').map((prod, j) => (
+            <option value={prod} key={j}>
+              {prod}
+            </option>
+          ))}
+        </select>
+		    <label for="size" className="">
+          Select a Size 
+        </label>
+        <select
+          id="size"
+          name="size"
+          className="form-control mb-1"
+          onChange={this.handleInputChange}
+          value={this.state.size}>
+          {item.size.split(',').map((prod, j) => (
+            <option value={prod} key={j}>
+              {prod}
+            </option>
+          ))}
+        </select>
+	    </form>
     );
   };
 
@@ -66,14 +114,16 @@ class Product extends Component {
     return (
       <div className="center_body">
         <div className="row bg-light">
-          <div className="d-flex flex-column col-sm-7 card bg-light text-center flex-fill">
+          <div className="d-flex flex-column col-sm-7 card bg-light text-center">
             <div className="card-body px-1">{this.carousel_img(items)}</div>
-
-            <div className="card-footer bg-light d-flex justify-content-around my-3">
-              <h3>Price: ${item.price}</h3>
-            <button type="submit" className="btn btn-primary">
-             Add to Cart 
-            </button>
+            <div className="card-footer bg-light d-flex flex-column justify-content-around my-3">
+              {this.prod_disp(item)}
+              <div className="row d-flex justify-content-between mt-2">
+                <h3>Price: ${parseFloat(item.price.split(','))}</h3>
+                <button type="submit" className="btn btn-primary">
+                  Add to Cart
+                </button>
+              </div>
             </div>
           </div>
           <div className="col-sm-1" />

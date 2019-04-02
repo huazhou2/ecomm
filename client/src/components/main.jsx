@@ -9,7 +9,7 @@ class Main extends Component {
     const contents = [];
     var content = [];
     data.forEach((item, i) => {
-      content.push({link:'/static/' + item.linkimg,name: item.name, desc: item.price});
+	    content.push({link:'/static/' + item.linkimg,name: item.name, desc: Math.min(...item.price.split(',').map((pr)=>parseFloat(pr)))});
       if (i > 1 && i % col_num === col_num - 1) {
         contents.push(content);
         content = [];
