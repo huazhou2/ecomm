@@ -19,6 +19,11 @@ class Product extends Component {
       price: props.data[0].price.split(',')[0],
     };
   }
+  handleInputChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
 
   carousel_img = pics => {
     return (
@@ -71,10 +76,8 @@ class Product extends Component {
 
   prod_disp = item => {
     return (
-	    <form className='text-left'>
-		    <label for="color" className=''>
-          Select a Color
-        </label>
+      <form className="text-left">
+        <label>Select a Color</label>
         <select
           id="size"
           name="size"
@@ -87,22 +90,20 @@ class Product extends Component {
             </option>
           ))}
         </select>
-		    <label for="size" className="">
-          Select a Size 
-        </label>
+        <label>Select a Size</label>
         <select
           id="size"
           name="size"
           className="form-control mb-1"
           onChange={this.handleInputChange}
-          value={this.state.size}>
+          value={this.state.color}>
           {item.size.split(',').map((prod, j) => (
             <option value={prod} key={j}>
               {prod}
             </option>
           ))}
         </select>
-	    </form>
+      </form>
     );
   };
 
@@ -110,7 +111,6 @@ class Product extends Component {
     const {data} = this.props;
     const item = data[0];
     const items = [item, item, item];
-    console.log(items);
     return (
       <div className="center_body">
         <div className="row bg-light">
