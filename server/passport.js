@@ -13,7 +13,6 @@ module.exports = passport => {
     passport.use(new JWTStrategy(opts, (jwt_payload, done) => {
         User.findById(jwt_payload.id)
             .then(user => {
-		    console.log('passport',user);
                 if(user) {
                     return done(null, user);
                 }

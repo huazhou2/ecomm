@@ -3,6 +3,8 @@ import {addToCart} from '../reducers/actions';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+
+
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 
@@ -35,14 +37,14 @@ class Product extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const product = {
-	       id: this.state.id,
-	    name: this.state.name,
-	    size: this.state.size,
-	    color: this.state.color,
+	    //    id: this.state.id,
+	    //name: this.state.name,
+	    //size: this.state.size,
+	    //color: this.state.color,
       quantity: this.state.quantity,
       price: this.state.price,
     };
-	    this.props.addToCart(product);
+    this.props.addToCart(product);
   };
 
   carousel_img = pics => {
@@ -174,8 +176,12 @@ class Product extends Component {
     );
   }
 }
+Product.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+};
 
 
 export default connect(
     null,
-    {addToCart})(Product);
+    {addToCart}
+  )(Product);

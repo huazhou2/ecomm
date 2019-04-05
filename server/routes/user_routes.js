@@ -8,12 +8,12 @@ const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 
 const User = require('../models/customers');
-const secret='huazhou';
+const secret = 'huazhou';
 
 router.post('/register', function(req, res) {
   const {errors, isValid} = validateRegisterInput(req.body);
 
-	console.log('register',errors);
+  console.log('register', errors);
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -34,8 +34,8 @@ router.post('/register', function(req, res) {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-	group:'regular',
-	products:[],
+        group: 'regular',
+        products: [],
         avatar,
       });
 
@@ -73,11 +73,8 @@ router.post('/login', (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         const payload = {
-          id: user.id,
-          name: user.name,
-          avatar: user.avatar,
-          group:user.group,
-	  products:user.products
+          id: user._id,
+          email: user.name,
         };
         jwt.sign(
           payload,
@@ -107,26 +104,50 @@ router.get(
   '/me',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
-	  console.log('inside me')
-    return res.json({
-      id: req.user.id,
-      name: req.user.name,
-      email: req.user.email,
-      group:req.user.group,
-      products: req.user.products
-    });
+    return res.json(req.user);
   },
 );
 
-router.get('/getdata', 
-	passport.authenticate('jwt',{session:false}),
-	(req, res) => {
-		if (req.user.group==='admin')
-  User.find((err, data) => {
-    if (err) return res.json('got errors');
-    res.status(200).send(data);})
-	  else 
-        res.status(401).send({Errors: 'You are not admin'}); }
+router.get(
+  '/getadmindata',
+  passport.authenticate('jwt', {session: false}),
+  (req, res) => {
+    if (req.user.group === 'admin')
+      User.find((err, data) => {
+        if (err) return res.json('got errors');
+        res.status(200).send(data);
+      });
+    else res.status(401).send({Errors: 'You are not admin'});
+  },
+);
+router.post(
+  '/addtocart',
+  passport.authenticate('jwt', {session: false}),
+  (req, res) => {
+	  const {product}=req.body;
+	  product.quantity=parseInt(product.quantity);
+
+	 let curproducts=req.user.products;
+	  
+	  var foundIndex=curproducts.findIndex(x => x.name===product.name &&
+	  x.size===product.size && x.color===product.color);
+	  console.log('found index: ',foundIndex);
+	  if (foundIndex != (-1))
+		  curproducts[foundIndex].quantity=curproducts[foundIndex].quantity+product.quantity;
+	  else
+		  curproducts.push(product);
+  User.findOneAndUpdate({
+    email: req.user.email,
+  }, {$set: {'products':curproducts}});
+
+	  
+	  //newUser.save();
+	  console.log('submitted',product);
+	  console.log('now the products is : ', curproducts); 
+
+	  
+    return res.json(curproducts);
+      },
 );
 
 module.exports = router;

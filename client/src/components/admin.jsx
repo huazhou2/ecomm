@@ -16,7 +16,7 @@ class Admin extends Component {
   }
   getdata = () => {
     axios
-      .get('/api/customers/getdata')
+      .get('/api/customers/getadmindata')
 		  .then(res => this.setState({data: res.data}))
 		  .catch(err => this.props.history.push('/')) ;
   };
