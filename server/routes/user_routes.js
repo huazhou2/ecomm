@@ -124,30 +124,41 @@ router.post(
   '/addtocart',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
-	  const {product}=req.body;
-	  product.quantity=parseInt(product.quantity);
+    const {product} = req.body;
+    console.log('inside server adding Product: ', product);
+    let curproducts = req.user.products;
+    console.log('prev the products is : ', curproducts);
+    if (Object.keys(product).length > 0) {
+	    // product.quantity = parseInt(product.quantity);
+      var foundIndex = curproducts.findIndex(
+        x =>
+          x.name === product.name &&
+          x.size === product.size &&
+          x.color === product.color,
+      );
+      console.log('found index: ', foundIndex);
+      if (foundIndex != -1)
+        curproducts[foundIndex].quantity =
+          +curproducts[foundIndex].quantity + +product.quantity;
+      else curproducts.push(product);
+      User.findOneAndUpdate(
+        {
+          email: req.user.email,
+        },
+        {$set: {products: curproducts}},
+        {new: true},
+        function(err, res) {
+          if (err) console.log('something wrong in updating');
+          console.log('Success update:', res);
+        },
+      );
+    }
+    //newUser.save();
+    //	  console.log('submitted',product);
+    console.log('now the products is : ', curproducts);
 
-	 let curproducts=req.user.products;
-	  
-	  var foundIndex=curproducts.findIndex(x => x.name===product.name &&
-	  x.size===product.size && x.color===product.color);
-	  console.log('found index: ',foundIndex);
-	  if (foundIndex != (-1))
-		  curproducts[foundIndex].quantity=curproducts[foundIndex].quantity+product.quantity;
-	  else
-		  curproducts.push(product);
-  User.findOneAndUpdate({
-    email: req.user.email,
-  }, {$set: {'products':curproducts}});
-
-	  
-	  //newUser.save();
-	  console.log('submitted',product);
-	  console.log('now the products is : ', curproducts); 
-
-	  
     return res.json(curproducts);
-      },
+  },
 );
 
 module.exports = router;

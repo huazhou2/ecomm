@@ -1,9 +1,9 @@
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+//import jwt_decode from 'jwt-decode';
 
 export const GET_ERRORS = 'GET_ERRORS';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
-export const Add_TO_CART = 'ADD_TO_CART';
+export const UPDATE_CART = 'UPDATE_CART';
 export const setAuthToken = token => {
   if (token) {
     axios.defaults.headers.common['Authorization'] = token;
@@ -42,10 +42,15 @@ export const loginUser = user => dispatch => {
     });
 };
 
-export const getCurrentUser = () =>dispatch=> {
+export const getCurrentUser = () => dispatch => {
   axios.get('/api/customers/me').then(res => {
     const user = res.data;
-	  console.log('inside get user',user);
+	  //console.log('inside get user', user);
+      dispatch({
+        type: UPDATE_CART,
+        payload: user.products,
+      });
+    delete user.products;
     dispatch(setCurrentUser(user));
   });
 };
@@ -68,9 +73,13 @@ export const addToCart = product => dispatch => {
   axios
     .post('/api/customers/addtocart', {product})
     .then(res => {
-	    console.log(res.data);
+	    //console.log('inside dispatch cart:', res.data);
+      dispatch({
+        type: UPDATE_CART,
+        payload: res.data,
+      });
     })
     .catch(err => {
-	    console.log('');
+      console.log('Error happened in updating cart');
     });
 };

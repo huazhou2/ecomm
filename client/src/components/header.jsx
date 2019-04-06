@@ -12,6 +12,9 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.goBack = this.goBack.bind(this);
+    this.state={
+	    quant:0
+    };
   }
 
   goBack() {
@@ -41,8 +44,13 @@ class Header extends Component {
     return groups;
   }
   shop_cart() {
+    const products = this.props.products;
+	const quant= products.reduce((a,b)=>+a + +b.quantity,0) || 0 ;
+	  
+	  //console.log('product ',products);
+	  //console.log('product quantity ',  quant);
     return (
-      <a href="/">
+      <a href="/mycarts">
         {' '}
         <span
           className="fa-stack  mr-xs-2"
@@ -55,8 +63,10 @@ class Header extends Component {
               marginLeft: '0.5em',
               fontSize: '.8em',
             }}>
-            <i className="fa fa-stack-1x fa-circle" />
-            <i className="fa fa-stack-1x fa-inverse text-dark">5</i>
+	    {quant >0 ?  <div><i className="fa fa-stack-1x fa-circle" />
+	    <i className="fa fa-stack-1x fa-inverse text-dark">
+		    {quant}
+	    </i></div>:''}
           </span>
         </span>{' '}
       </a>
@@ -65,6 +75,8 @@ class Header extends Component {
 
   topright_menu() {
     const {isAuthenticated, user} = this.props.auth;
+	  //  console.log('inside topright: ',user);
+	  //console.log('inside topright2222: ',products);
     return (
       <div>
         <ul className="navbar-nav d-flex justify-content-center">
@@ -189,6 +201,7 @@ class Header extends Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
+    products:state.products,
   };
 };
 

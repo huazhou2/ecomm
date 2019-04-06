@@ -9,6 +9,7 @@ import Logout from './logout.jsx';
 import Header from './header.jsx';
 import ScrollUp from './scrollup.jsx';
 import SearchRes from './searchres.jsx';
+import MyCarts from './mycarts.jsx';
 import data from '../data/massagedata.json';
 
 
@@ -55,6 +56,7 @@ class Routes extends Component {
             />
             <Route exact path="/login" render={() => <Login data={data} />} />
             <Route exact path="/logout" render={() => <Logout data={data} />} />
+            <Route exact path="/mycarts" render={() => <MyCarts data={data} />} />
             <Route
               exact
               path="/register"

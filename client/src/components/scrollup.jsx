@@ -26,7 +26,7 @@ class ScrollUp extends Component {
   
   render () {
 	  
-	  console.log(window.scrollY);
+	  //console.log(window.scrollY);
 	  return window.scrollY >800 &&  <button title='Back to top' className='scroll' 
                onClick={ () => { this.scrollToTop(); }}>
                 <i className='fa fa-arrow-up fa-2x text-primary'></i>

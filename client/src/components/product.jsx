@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {addToCart} from '../reducers/actions';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
@@ -24,6 +24,7 @@ class Product extends Component {
       size: props.data[0].size.split(',')[0],
       color: props.data[0].color.split(',')[0],
       price: props.data[0].price.split(',')[0],
+      linkimg: props.data[0].linkimg,
       quantity: 1,
     };
   }
@@ -40,6 +41,7 @@ class Product extends Component {
 	    size: this.state.size,
 	    color: this.state.color,
       quantity: this.state.quantity,
+      linkimg:this.state.linkimg,
       price: this.state.price,
     };
 	    this.props.addToCart(product);
@@ -130,9 +132,9 @@ class Product extends Component {
           className="form-control mb-1"
           onChange={this.handleInputChange}
           value={this.state.quantity}>
-          {[...Array(10).keys()].map((prod, j) => (
+          {[...Array(9).keys()].map((prod, j) => (
             <option value={prod + 1} key={`quantity_${j}`}>
-              {prod}
+              {prod+1}
             </option>
           ))}
         </select>
