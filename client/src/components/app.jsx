@@ -4,7 +4,12 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {Helmet} from 'react-helmet';
 import Routes from './routes.jsx';
-import {setAuthToken, getCurrentUser, logoutUser} from '../reducers/actions';
+import {
+  setAuthToken,
+  getCurrentUser,
+  logoutUser,
+  UPDATE_CART
+} from '../reducers/actions';
 import jwt_decode from 'jwt-decode';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
@@ -15,7 +20,7 @@ const store = createStore(userReducer, applyMiddleware(thunk));
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
-	const decoded = jwt_decode(localStorage.jwtToken);
+  const decoded = jwt_decode(localStorage.jwtToken);
   store.dispatch(getCurrentUser());
 
   const currentTime = Date.now() / 1000;
@@ -24,9 +29,14 @@ if (localStorage.jwtToken) {
     window.location.href = '/login';
   }
 }
+if (localStorage.products) {
+  store.dispatch({
+    type: UPDATE_CART,
+    payload: JSON.parse(localStorage.getItem('products')),
+  });
+}
 
 class App extends Component {
-
   render() {
     return (
       <Provider store={store}>
@@ -35,7 +45,7 @@ class App extends Component {
             <title>{TITLE}</title>
           </Helmet>
           <Router>
-              <Routes />
+            <Routes />
           </Router>
         </div>
       </Provider>

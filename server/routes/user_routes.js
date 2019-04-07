@@ -12,7 +12,6 @@ const secret = 'huazhou';
 
 router.post('/register', function(req, res) {
   const {errors, isValid} = validateRegisterInput(req.body);
-
   console.log('register', errors);
   if (!isValid) {
     return res.status(400).json(errors);
@@ -124,19 +123,16 @@ router.post(
   '/addtocart',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
+	
     const {product} = req.body;
-    console.log('inside server adding Product: ', product);
-    let curproducts = req.user.products;
-    console.log('prev the products is : ', curproducts);
-    if (Object.keys(product).length > 0) {
-	    // product.quantity = parseInt(product.quantity);
+    let curproducts = req.user.products || [];
+	  
       var foundIndex = curproducts.findIndex(
         x =>
           x.name === product.name &&
           x.size === product.size &&
           x.color === product.color,
       );
-      console.log('found index: ', foundIndex);
       if (foundIndex != -1)
         curproducts[foundIndex].quantity =
           +curproducts[foundIndex].quantity + +product.quantity;
@@ -149,16 +145,48 @@ router.post(
         {new: true},
         function(err, res) {
           if (err) console.log('something wrong in updating');
-          console.log('Success update:', res);
+		// console.log('Success update:', res);
         },
       );
-    }
-    //newUser.save();
-    //	  console.log('submitted',product);
-    console.log('now the products is : ', curproducts);
-
     return res.json(curproducts);
   },
 );
+
+router.post(
+  '/clearcart',
+  passport.authenticate('jwt', {session: false}),
+  (req, res) => {
+      User.findOneAndUpdate(
+        {
+          email: req.user.email,
+        },
+        {$set: {products:[] }},
+        {new: true},
+        function(err, res) {
+          if (err) console.log('something wrong in updating');
+        },
+      );
+    return res.json([]);
+},
+);
+router.post(
+  '/updatecart',
+  passport.authenticate('jwt', {session: false}),
+  (req, res) => {
+    const {products} = req.body;
+      User.findOneAndUpdate(
+        {
+          email: req.user.email,
+        },
+        {$set: {products: products}},
+        {new: true},
+        function(err, res) {
+          if (err) console.log('something wrong in updating');
+        },
+      );
+    return res.json(products);
+},
+);
+	
 
 module.exports = router;

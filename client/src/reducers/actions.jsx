@@ -1,9 +1,11 @@
 import axios from 'axios';
+import {combineArrays} from './helper.jsx';
 //import jwt_decode from 'jwt-decode';
 
 export const GET_ERRORS = 'GET_ERRORS';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const UPDATE_CART = 'UPDATE_CART';
+export const CLEAR_CART = 'CLEAR_CART';
 export const setAuthToken = token => {
   if (token) {
     axios.defaults.headers.common['Authorization'] = token;
@@ -45,11 +47,13 @@ export const loginUser = user => dispatch => {
 export const getCurrentUser = () => dispatch => {
   axios.get('/api/customers/me').then(res => {
     const user = res.data;
-	  //console.log('inside get user', user);
-      dispatch({
-        type: UPDATE_CART,
-        payload: user.products,
-      });
+    dispatch({
+      type: UPDATE_CART,
+      payload: combineArrays(
+        user.products,
+        JSON.parse(localStorage.getItem('products')),
+      ),
+    });
     delete user.products;
     dispatch(setCurrentUser(user));
   });
@@ -67,19 +71,94 @@ export const logoutUser = history => dispatch => {
   setAuthToken(false);
   dispatch(setCurrentUser({}));
   history.push('/login');
+  localStorage.removeItem('products');
 };
 
-export const addToCart = product => dispatch => {
-  axios
-    .post('/api/customers/addtocart', {product})
-    .then(res => {
-	    //console.log('inside dispatch cart:', res.data);
-      dispatch({
-        type: UPDATE_CART,
-        payload: res.data,
+export const addLocalProducts = product => dispatch => {
+  var products = combineArrays(
+    [product],
+    JSON.parse(localStorage.getItem('products')),
+  );
+
+  localStorage.setItem('products', JSON.stringify(products));
+  dispatch({
+    type: UPDATE_CART,
+    payload: products,
+  });
+};
+
+export const updateLocalProducts = products => dispatch => {
+  localStorage.setItem('products', JSON.stringify(products));
+  dispatch({
+    type: UPDATE_CART,
+    payload: products,
+  })
+};
+
+export const clearLocalProducts = () => dispatch => {
+  var products = [];
+  localStorage.setItem('products', JSON.stringify(products));
+  dispatch({
+    type: CLEAR_CART,
+    payload: [],
+  })
+};
+
+export const addToCart = (product, isAuthenticated) => dispatch => {
+  if (isAuthenticated) {
+    axios
+      .post('/api/customers/addtocart', {product})
+      .then(res => {
+        dispatch({
+          type: UPDATE_CART,
+          payload: res.data,
+        });
+      })
+      .catch(err => {
+        //if unauthorized adding to cart
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data,
+        });
       });
-    })
-    .catch(err => {
-      console.log('Error happened in updating cart');
-    });
+  } else dispatch(addLocalProducts(product));
+};
+export const updateCart = (products, isAuthenticated) => dispatch => {
+  if (isAuthenticated) {
+    axios
+      .post('/api/customers/updatecart', {products})
+      .then(res => {
+        dispatch({
+          type: UPDATE_CART,
+          payload: res.data,
+        });
+      })
+      .catch(err => {
+        //if unauthorized adding to cart
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data,
+        });
+      });
+  } else dispatch(updateLocalProducts(products));
+};
+
+export const clearCart = (isAuthenticated) => dispatch => {
+  if (isAuthenticated) {
+    axios
+      .post('/api/customers/clearcart' )
+      .then(res => {
+        dispatch({
+          type: CLEAR_CART,
+          payload: [],
+        });
+      })
+      .catch(err => {
+        //if unauthorized adding to cart
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data,
+        });
+      });
+  } else dispatch(clearLocalProducts());
 };

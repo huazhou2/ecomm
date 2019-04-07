@@ -36,15 +36,16 @@ class Product extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const product = {
-	       id: this.state.id,
-	    name: this.state.name,
-	    size: this.state.size,
-	    color: this.state.color,
+      id: this.state.id,
+      name: this.state.name,
+      size: this.state.size,
+      color: this.state.color,
       quantity: this.state.quantity,
-      linkimg:this.state.linkimg,
+      linkimg: this.state.linkimg,
       price: this.state.price,
     };
-	    this.props.addToCart(product);
+    const {isAuthenticated} = this.props.auth;
+    this.props.addToCart(product,isAuthenticated);
   };
 
   carousel_img = pics => {
@@ -105,7 +106,7 @@ class Product extends Component {
           name="color"
           className="form-control mb-1"
           onChange={this.handleInputChange}
-          value={this.state.size}>
+          value={this.state.color}>
           {item.color.split(',').map((prod, j) => (
             <option value={prod} key={`color_${j}`}>
               {prod}
@@ -118,7 +119,7 @@ class Product extends Component {
           name="size"
           className="form-control mb-1"
           onChange={this.handleInputChange}
-          value={this.state.color}>
+          value={this.state.size}>
           {item.size.split(',').map((prod, j) => (
             <option value={prod} key={`color_${j}`}>
               {prod}
@@ -134,7 +135,7 @@ class Product extends Component {
           value={this.state.quantity}>
           {[...Array(9).keys()].map((prod, j) => (
             <option value={prod + 1} key={`quantity_${j}`}>
-              {prod+1}
+              {prod + 1}
             </option>
           ))}
         </select>
@@ -177,7 +178,13 @@ class Product extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+  };
+};
 
 export default connect(
-    null,
-    {addToCart})(Product);
+  mapStateToProps,
+  {addToCart},
+)(Product);
