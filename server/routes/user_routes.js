@@ -174,6 +174,7 @@ router.post(
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
     const {products} = req.body;
+	  console.log('updating cart:',products);
       User.findOneAndUpdate(
         {
           email: req.user.email,

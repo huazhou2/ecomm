@@ -23,6 +23,8 @@ class MyCarts extends Component {
         if (event.target.value === '0') {
           products.splice(i, 1);
         } else products[i].quantity = event.target.value;
+	      this.setState({product:products});
+	      console.log('now products:', products);
         this.props.updateCart(products, this.props.auth.isAuthenticated);
       }
     }
@@ -69,7 +71,7 @@ class MyCarts extends Component {
                         // target={`${item.name}${item.color}`}
                         className="form-control mb-1"
                         onChange={this.handleInputChange}
-                        value={item.quantity}>
+                        value={+item.quantity}>
                         {[...Array(9).keys()].map((prod, j) => (
                           <option value={prod} key={`quantity_${j}`}>
                             {prod}
