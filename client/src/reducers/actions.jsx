@@ -47,14 +47,20 @@ export const loginUser = user => dispatch => {
 export const getCurrentUser = () => dispatch => {
   axios.get('/api/customers/me').then(res => {
     const user = res.data;
-    dispatch({
+	  /*dispatch({
       type: UPDATE_CART,
       payload: combineArrays(
         user.products,
         JSON.parse(localStorage.getItem('products')),
       ),
-    });
+    });*/
+    dispatch(updateCart(
+      combineArrays(
+        user.products,
+        JSON.parse(localStorage.getItem('products')),true)));
     delete user.products;
+	  console.log('deleting local storage');
+  localStorage.removeItem('products');
     dispatch(setCurrentUser(user));
   });
 };
@@ -128,6 +134,7 @@ export const updateCart = (products, isAuthenticated) => dispatch => {
     axios
       .post('/api/customers/updatecart', {products})
       .then(res => {
+	      console.log('after updates local products',res.data);
         dispatch({
           type: UPDATE_CART,
           payload: res.data,

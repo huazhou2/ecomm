@@ -16,8 +16,8 @@ class Header extends Component {
 	    quant:0
     };
   }
-	//	componentWillReceiveProps() {
-	//this.setState ( {products:this.props.products});}
+		componentWillReceiveProps() {
+	this.setState ( {products:this.props.products});}
 
   goBack() {
     this.props.history.goBack();
@@ -47,7 +47,7 @@ class Header extends Component {
   }
   shop_cart() {
     const products = this.props.products;
-	  console.log('in header',products);
+	  //console.log('in header',products);
 	const quant= products.reduce((a,b)=>+a + +(b.quantity),0) || 0 ;
 	  
 	  //console.log('product ',products);

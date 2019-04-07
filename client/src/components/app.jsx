@@ -30,6 +30,7 @@ if (localStorage.jwtToken) {
   }
 }
 if (localStorage.products) {
+	console.log('inside loading local products');
   store.dispatch({
     type: UPDATE_CART,
     payload: JSON.parse(localStorage.getItem('products')),

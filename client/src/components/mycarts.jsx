@@ -5,13 +5,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 import {clearCart, updateCart} from '../reducers/actions';
 import {withRouter} from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.css';
 
 class MyCarts extends Component {
+	 constructor(props) {
+		     super(props);
+		   }
+
   handleClear = e => {
     e.preventDefault();
-    const {isAuthenticated} = this.props.auth;
-    this.props.clearCart(isAuthenticated);
+	  //const {isAuthenticated} = this.props.auth;
+    this.props.clearCart(this.props.auth.isAuthenticated);
   };
   handleInputChange = event => {
     const products = this.props.products;
@@ -23,15 +26,16 @@ class MyCarts extends Component {
         if (event.target.value === '0') {
           products.splice(i, 1);
         } else products[i].quantity = event.target.value;
-	      this.setState({product:products});
+	      //  this.setState({product:products});
 	      console.log('now products:', products);
-        this.props.updateCart(products, this.props.auth.isAuthenticated);
+	      // this.props.updateCart(products, this.props.auth.isAuthenticated);
       }
     }
   };
 
   render() {
     const products = this.props.products;
+	  console.log(products);
     const quant = (
       products.reduce((a, b) => +a + +b.quantity * +b.price, 0) || 0
     ).toFixed(2);
@@ -110,8 +114,8 @@ class MyCarts extends Component {
 }
 const mapStateToProps = state => {
   return {
-    products: state.products,
     auth: state.auth,
+    products: state.products,
   };
 };
 
