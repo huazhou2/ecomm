@@ -8,7 +8,7 @@ import {
   setAuthToken,
   getCurrentUser,
   logoutUser,
-  UPDATE_CART
+  UPDATE_CART,
 } from '../reducers/actions';
 import jwt_decode from 'jwt-decode';
 import {createStore, applyMiddleware} from 'redux';
@@ -30,7 +30,6 @@ if (localStorage.jwtToken) {
   }
 }
 if (localStorage.products) {
-	console.log('inside loading local products');
   store.dispatch({
     type: UPDATE_CART,
     payload: JSON.parse(localStorage.getItem('products')),

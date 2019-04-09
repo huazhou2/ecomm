@@ -123,31 +123,29 @@ router.post(
   '/addtocart',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
-	
     const {product} = req.body;
     let curproducts = req.user.products || [];
-	  
-      var foundIndex = curproducts.findIndex(
-        x =>
-          x.name === product.name &&
-          x.size === product.size &&
-          x.color === product.color,
-      );
-      if (foundIndex != -1)
-        curproducts[foundIndex].quantity =
-          +curproducts[foundIndex].quantity + +product.quantity;
-      else curproducts.push(product);
-      User.findOneAndUpdate(
-        {
-          email: req.user.email,
-        },
-        {$set: {products: curproducts}},
-        {new: true},
-        function(err, res) {
-          if (err) console.log('something wrong in updating');
-		// console.log('Success update:', res);
-        },
-      );
+
+    var foundIndex = curproducts.findIndex(
+      x =>
+        x.name === product.name &&
+        x.size === product.size &&
+        x.color === product.color,
+    );
+    if (foundIndex != -1)
+      curproducts[foundIndex].quantity =
+        +curproducts[foundIndex].quantity + +product.quantity;
+    else curproducts.push(product);
+    User.findOneAndUpdate(
+      {
+        email: req.user.email,
+      },
+      {$set: {products: curproducts}},
+      {new: true},
+      function(err, res) {
+        if (err) console.log('something wrong in updating');
+      },
+    );
     return res.json(curproducts);
   },
 );
@@ -156,38 +154,37 @@ router.post(
   '/clearcart',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
-      User.findOneAndUpdate(
-        {
-          email: req.user.email,
-        },
-        {$set: {products:[] }},
-        {new: true},
-        function(err, res) {
-          if (err) console.log('something wrong in updating');
-        },
-      );
+    User.findOneAndUpdate(
+      {
+        email: req.user.email,
+      },
+      {$set: {products: []}},
+      {new: true},
+      function(err, res) {
+        if (err) console.log('something wrong in updating');
+      },
+    );
     return res.json([]);
-},
+  },
 );
 router.post(
   '/updatecart',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
     const {products} = req.body;
-	  console.log('updating cart:',products);
-      User.findOneAndUpdate(
-        {
-          email: req.user.email,
-        },
-        {$set: {products: products}},
-        {new: true},
-        function(err, res) {
-          if (err) console.log('something wrong in updating');
-        },
-      );
+    // console.log('updating cart:',products);
+    User.findOneAndUpdate(
+      {
+        email: req.user.email,
+      },
+      {$set: {products: products}},
+      {new: true},
+      function(err, res) {
+        if (err) console.log('something wrong in updating');
+      },
+    );
     return res.json(products);
-},
+  },
 );
-	
 
 module.exports = router;

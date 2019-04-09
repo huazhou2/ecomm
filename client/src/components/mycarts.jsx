@@ -7,13 +7,8 @@ import {clearCart, updateCart} from '../reducers/actions';
 import {withRouter} from 'react-router-dom';
 
 class MyCarts extends Component {
-	 constructor(props) {
-		     super(props);
-		   }
-
   handleClear = e => {
     e.preventDefault();
-	  //const {isAuthenticated} = this.props.auth;
     this.props.clearCart(this.props.auth.isAuthenticated);
   };
   handleInputChange = event => {
@@ -26,16 +21,14 @@ class MyCarts extends Component {
         if (event.target.value === '0') {
           products.splice(i, 1);
         } else products[i].quantity = event.target.value;
-	      //  this.setState({product:products});
-	      console.log('now products:', products);
-	      // this.props.updateCart(products, this.props.auth.isAuthenticated);
+        this.setState({product: products});
+        this.props.updateCart(products, this.props.auth.isAuthenticated);
       }
     }
   };
 
   render() {
-    const products = this.props.products;
-	  console.log(products);
+    const {products} = this.props;
     const quant = (
       products.reduce((a, b) => +a + +b.quantity * +b.price, 0) || 0
     ).toFixed(2);
@@ -123,4 +116,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     {clearCart, updateCart},
-  )(MyCarts));
+  )(MyCarts),
+);

@@ -57,9 +57,9 @@ export const getCurrentUser = () => dispatch => {
     dispatch(updateCart(
       combineArrays(
         user.products,
-        JSON.parse(localStorage.getItem('products')),true)));
+        JSON.parse(localStorage.getItem('products'))),true));
     delete user.products;
-	  console.log('deleting local storage');
+	  //console.log('deleting local storage');
   localStorage.removeItem('products');
     dispatch(setCurrentUser(user));
   });
@@ -78,6 +78,7 @@ export const logoutUser = history => dispatch => {
   dispatch(setCurrentUser({}));
   history.push('/login');
   localStorage.removeItem('products');
+  dispatch(updateLocalProducts([],false));
 };
 
 export const addLocalProducts = product => dispatch => {
@@ -95,6 +96,7 @@ export const addLocalProducts = product => dispatch => {
 
 export const updateLocalProducts = products => dispatch => {
   localStorage.setItem('products', JSON.stringify(products));
+	//console.log('actions update cart not loggedin: ',products);
   dispatch({
     type: UPDATE_CART,
     payload: products,
@@ -134,7 +136,7 @@ export const updateCart = (products, isAuthenticated) => dispatch => {
     axios
       .post('/api/customers/updatecart', {products})
       .then(res => {
-	      console.log('after updates local products',res.data);
+	      //console.log('actions update cart loggedin:',res.data);
         dispatch({
           type: UPDATE_CART,
           payload: res.data,

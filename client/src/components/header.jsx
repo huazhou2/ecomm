@@ -7,21 +7,12 @@ import {withRouter, Link} from 'react-router-dom';
 import {logoutUser} from '../reducers/actions';
 import data from '../data/massagedata.json';
 import SearchBar from './searchbar';
+import ShopCart from './shopcart';
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.goBack = this.goBack.bind(this);
-    this.state={
-	    quant:0
-    };
-  }
-		componentWillReceiveProps() {
-	this.setState ( {products:this.props.products});}
-
-  goBack() {
+  goBack = () => {
     this.props.history.goBack();
-  }
+  };
   onLogout = e => {
     e.preventDefault();
     this.props.logoutUser(this.props.history);
@@ -45,41 +36,9 @@ class Header extends Component {
     });
     return groups;
   }
-  shop_cart() {
-    const products = this.props.products;
-	  //console.log('in header',products);
-	const quant= products.reduce((a,b)=>+a + +(b.quantity),0) || 0 ;
-	  
-	  //console.log('product ',products);
-	  //console.log('product quantity ',  quant);
-    return (
-      <a href="/mycarts">
-        {' '}
-        <span
-          className="fa-stack  mr-xs-2"
-          style={{fontSize: '1.25em', marginTop: '-0.2em'}}>
-          <i className="fa fa-shopping-cart fa-stack-1x text-white" />
-          <span
-            className="fa fa-stack-1x text-warning"
-            style={{
-              marginTop: '-0.5em',
-              marginLeft: '0.5em',
-              fontSize: '.8em',
-            }}>
-	    {quant >0 ?  <div><i className="fa fa-stack-1x fa-circle" />
-	    <i className="fa fa-stack-1x fa-inverse text-dark">
-		    {quant}
-	    </i></div>:''}
-          </span>
-        </span>{' '}
-      </a>
-    );
-  }
 
   topright_menu() {
     const {isAuthenticated, user} = this.props.auth;
-	  //  console.log('inside topright: ',user);
-	  //console.log('inside topright2222: ',products);
     return (
       <div>
         <ul className="navbar-nav d-flex justify-content-center">
@@ -124,7 +83,9 @@ class Header extends Component {
               <Link to="/login">Signin/Register</Link>
             )}
           </li>
-          <li className="d-none d-sm-block">{this.shop_cart()}</li>
+          <li className="d-none d-sm-block">
+            <ShopCart />
+          </li>
         </ul>
       </div>
     );
@@ -143,7 +104,9 @@ class Header extends Component {
             <a className="navbar-brand ml-sm-2 text-white d-block" href="/">
               Lily Massage Supplies{' '}
             </a>
-            <span className="d-block d-sm-none ml-3">{this.shop_cart()}</span>
+            <span className="d-block d-sm-none ml-3">
+              <ShopCart />
+            </span>
 
             <button
               className="navbar-toggler"
@@ -191,7 +154,7 @@ class Header extends Component {
               {this.topright_menu()}
             </div>
             <div className="input-group col-xs-12 col-sm-6 col-md-4">
-                <SearchBar />
+              <SearchBar />
             </div>
           </div>
         </nav>
@@ -204,7 +167,7 @@ class Header extends Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    products:state.products,
+    products: state.products,
   };
 };
 
