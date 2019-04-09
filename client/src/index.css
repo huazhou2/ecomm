@@ -18,13 +18,13 @@
 .center_body {
   width: 80%;
   margin: auto;
- overflow: hidden;
+  overflow: hidden;
 }
 @media screen and (max-width: 768px) {
   .center_body {
-  width: 100%;
- margin: auto;
- overflow: hidden;
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
   }
 }
 
@@ -71,18 +71,46 @@
   display: inline-block;
   cursor: pointer;
 }
-
 #thum_img {
-  max-width:100%;
+  max-width: 100%;
   height: auto;
   object-fit: cover;
 }
 @media screen and (max-width: 768px) {
-#thum_img {
-  max-width:30%;
-  height: auto;
+  #thum_img {
+    max-width: 30%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+@media screen and (max-width: 768px) {
+  #thum_img {
+    max-width: 30%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+#cart_img {
+  max-width: 30%;
+  width: auto;
+  max-height: 150px;
   object-fit: cover;
 }
+@media screen and (max-width: 768px) {
+  #cart_img {
+    max-width: 30%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+#cart_layout {
+  width: 60%;
+}
+@media screen and (max-width: 768px) {
+  #cart_layout {
+    width: 80%;
+  }
 }
 
 /*	   @media (min-width: 768px) {
@@ -117,12 +145,12 @@
   width: auto;
 }
 #caras .carousel-indicators li img {
-	  display: block;
-	    width: 40%;
-	      height: auto;
-	        margin: 0 auto;
-		  justify-content: center;
-	  }
+  display: block;
+  width: 40%;
+  height: auto;
+  margin: 0 auto;
+  justify-content: center;
+}
 .scroll {
   opacity: 0.3;
   background-color: white;

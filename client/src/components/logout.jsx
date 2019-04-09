@@ -17,4 +17,4 @@ class Logout extends Component {
 
 }
 
-export default connect(null, { logoutUser })(withRouter(Logout));
+export default withRouter(connect(null, { logoutUser })(Logout));

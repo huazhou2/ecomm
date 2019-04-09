@@ -95,7 +95,9 @@ class SearchBar extends Component {
   };
 
   handleSubmit = e => {
-    console.log('searching ', this.state.value);
+	  if (!this.state.value || this.state.value.trim().length==0)
+		  this.props.history.push('/');
+	  else
 	 this.props.history.push(`/search/${this.state.value}`);
   };
 

@@ -40,17 +40,19 @@ class MyCarts extends Component {
             {products.map((item, i) => (
               <div className="row" key={`cart_prod_${i}`}>
                 <div
-                  className="container col-xs-12 col-sm-3 col-md-2 text-center mx-1 mb-3"
+                  className="container col-xs-12 col-sm-8 col-md-8 mx-sm-auto text-center mx-1 mb-3"
                   key={i}>
                   <div
-                    className="d-block d-flex flex-xs-row flex-sm-column justify-content-start justify-content-sm-between align-items-center h-100 bg-light border-bottom"
+                    className="d-block d-flex flex-xs-row flex-sm-row justify-content-center justify-content-sm-between align-items-center h-100 bg-light border-bottom"
                     style={{textDecoration: 'none'}}>
                     <a
-                      className="d-block d-flex flex-xs-row flex-sm-column justify-content-start justify-content-sm-between align-items-center h-100 bg-light border-bottom"
+			    id='cart_layout'
+                      className="d-block d-flex flex-xs-row flex-sm-row justify-content-start justify-content-sm-around align-items-center h-100 bg-light border-bottom"
                       href={`/products/${item.name}`}
                       style={{textDecoration: 'none'}}>
                       <img
-                        id="thum_img"
+			  className='ml-0 pl-0 mr-auto'
+                        id="cart_img"
                         src={`/static/${item.linkimg}`}
                         alt="noimg"
                       />
@@ -60,8 +62,8 @@ class MyCarts extends Component {
                         <h5> {item.name}</h5> Price ${item.price}
                       </span>
                     </a>
-                    <span className="flex-grow-1 flex-sm-grow-0">
-                      <label>Quantity</label>
+                    <span className="flex-grow-1 flex-sm-grow-0 mx-auto form-inline">
+                      <label className='mr-3' >Quantity   </label>
                       <select
                         id={`item_${i}`}
                         name={`${item.name}_${item.color}_${item.size}`}
@@ -83,7 +85,7 @@ class MyCarts extends Component {
             <div className="d-flex justify-content-center">
               <h4>total cost is ${quant}</h4>
             </div>
-            <div className="d-flex justify-content-between">
+	    <div className="d-flex justify-content-between justify-content-xs-around col-xs-12 col-sm-8 col-md-8 mx-sm-auto text-center mx-1 mb-3">
               <button
                 type="submit"
                 className="btn btn-warning"

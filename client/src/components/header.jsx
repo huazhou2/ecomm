@@ -92,11 +92,11 @@ class Header extends Component {
   }
   render() {
     return (
-      <div style={{fontSize: '1.3em'}}>
+      <div style={{fontSize: '1.25em'}}>
         <nav className="navbar navbar-expand-sm navbar-light bg-dark fixed-top px-0">
           <div className="col-xs-12 col-sm-4 col-lg-3 col-md-6 my-sm-3 d-flex flex-row justify-content-between ml-0">
             {this.props.location.pathname !== '/' && (
-              <span className="d-block d-md-none" onClick={this.goBack}>
+              <span className="d-block d-md-none mr-1 text-white mt-1" style={{fontSize:'0.7em',marginLeft:'-10px'}} onClick={this.goBack}>
                 {' '}
                 <i className="fa fa-arrow-left fa-2x " />
               </span>
@@ -104,12 +104,12 @@ class Header extends Component {
             <a className="navbar-brand ml-sm-2 text-white d-block" href="/">
               Lily Massage Supplies{' '}
             </a>
-            <span className="d-block d-sm-none ml-3">
+            <span className="d-block d-sm-none mr-1" style={{marginLeft:'-25px'}}>
               <ShopCart />
             </span>
 
             <button
-              className="navbar-toggler"
+              className="navbar-toggler mr-2"
               type="button"
               data-toggle="collapse"
               data-target="#storemenu">

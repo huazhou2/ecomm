@@ -34,7 +34,7 @@ export const authReducer = (state = initialState, action) => {
 export const cartReducer = (state = [], action) => {
   switch (action.type) {
     case UPDATE_CART:
-      return action.payload;
+      return [...action.payload];
     case CLEAR_CART:
       return [];
     default:

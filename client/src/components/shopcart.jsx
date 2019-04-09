@@ -53,9 +53,15 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(
+/*export default withRouter(
   connect(
     mapStateToProps,
     null, null,{pure:false}
+  )(ShopCart),
+);*/
+export default withRouter(
+  connect(
+    mapStateToProps,
+    null 
   )(ShopCart),
 );

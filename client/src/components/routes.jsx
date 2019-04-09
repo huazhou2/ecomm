@@ -55,7 +55,7 @@ class Routes extends Component {
               )}
             />
             <Route exact path="/login" render={() => <Login data={data} />} />
-            <Route exact path="/logout" render={() => <Logout data={data} />} />
+	    <Route exact path="/logout" render={() => <Logout />} />
             <Route exact path="/mycarts" render={() => <MyCarts  />} />
             <Route
               exact
